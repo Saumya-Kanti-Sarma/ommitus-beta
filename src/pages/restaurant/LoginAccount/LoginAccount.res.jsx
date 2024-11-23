@@ -24,6 +24,7 @@ const RestaurantLoginAccount = () => {
             parentWidth={"65%"}
             parentHeight={"40vh"}
             btnTxt={"Sign-In"}
+            url={"/restaurant/login"}
           />
           <p className='already-have-account'>Don't have an account? <Link to={"/restaurant/create-account"}>Register</Link> </p>
           <br />
@@ -32,7 +33,7 @@ const RestaurantLoginAccount = () => {
           <BtnComponent
             backgroundColor={"#fff"}
             color={"#000"}
-            text={"Sign-In with GOOGLE"}
+            text={"Need Any Help"}
             width={"65%"}
             border={"1px solid black"}
             fontSize={"18px"}

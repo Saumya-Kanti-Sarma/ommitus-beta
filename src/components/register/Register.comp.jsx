@@ -1,10 +1,93 @@
-import React from 'react'
-import BtnComponent from "../Btns/Btn.comp.jsx"
-import "./Register.comp.css"
+import React, { useRef, useState } from 'react';
+import BtnComponent from "../Btns/Btn.comp.jsx";
+import axios from "axios";
+import "./Register.comp.css";
+import toast from 'react-hot-toast';
+import Cookies from "js-cookie";
+import { useNavigate } from "react-router-dom"
 const RegisterComponent = ({
-  parentWidth, parentHeight,
-  displayName, displayOwnerName, displayPassword, btnTxt
+  parentWidth,
+  parentHeight,
+  displayName,
+  displayOwnerName,
+  displayPassword,
+  btnTxt,
+  displayEmail,
+  url
 }) => {
+  const restaurantref = useRef(null);
+  const ownerref = useRef(null);
+  const emailref = useRef(null);
+  const passwordref = useRef(null);
+  const navigate = useNavigate();
+  const [data, setData] = useState({
+    restaurantName: "",
+    email: "",
+    password: "",
+    ownerName: "",
+  })
+
+  const [password, setPassword] = useState("password");// toggle between password and text
+  const [image, setImage] = useState("/close-eye.svg");// toggle between password and text
+
+
+  const handleChange = (field, value) => {
+    setData({ ...data, [field]: value });
+    //console.log(data);
+
+  };
+  const handleRef = (e, nextRef, prevRef) => {
+
+    if (e.key === "Enter" || e.key === "ArrowDown") {
+      nextRef?.current?.focus();
+    } else if (e.key === "ArrowUp") {
+      prevRef?.current?.focus();
+    }
+  };
+
+
+  const HandleTogglePassword = () => {
+    if (password == "password") {
+      setPassword("text");
+      setImage("/open-eye.svg");
+    }
+    else {
+      setPassword("password");
+      setImage("/close-eye.svg");
+    }
+  }
+
+  const handleSubmit = async () => {
+    const toastID = toast.loading("creating your new account..")
+    try {
+      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}${url}`, data);
+      //console.log(response.data.data.token);
+      Cookies.set('restaurantCredentialToken', `${response.data.data.token}`, { expires: 7 });
+      const cookie = Cookies.get("restaurantCredentialToken");
+
+      if (cookie == undefined) {
+        toast.error("cannot validate restaurant credentials, please contact us!")
+      }
+      else {
+        setTimeout(() => {
+          const restaurantName = response.data.data.restaurantName
+          navigate(`/restaurant/${restaurantName.replace(/\s+/g, '-')}/${response.data.data._id}/home`)
+        }, 600);
+      }
+      setTimeout(() => {
+        toast.dismiss(toastID);
+        toast.success(response.data.message);
+
+      }, 300);
+    } catch (error) {
+      console.log(error.response.data);
+      toast.dismiss(toastID);
+      toast.error(error.response.data.message)
+    }
+
+  };
+
+
   return (
     <>
       <div className='register-component-main'
@@ -20,10 +103,12 @@ const RegisterComponent = ({
         >
           <p>NAME OF RESTAURANT:</p>
           <input
+            autoFocus
             type="text"
-            value=""
-            onChange=""
-            onKeyDown={''}
+            value={data.restaurantName}
+            onChange={(e) => handleChange("restaurantName", e.target.value)}
+            onKeyDown={(e) => handleRef(e, ownerref, null)}
+            ref={restaurantref}
             placeholder='Eg: Gourmate Heavens'
           />
         </section>
@@ -34,11 +119,27 @@ const RegisterComponent = ({
         >
           <p>OWNER NAME:</p>
           <input
-            type="text"
-            value=""
-            onChange=""
-            onKeyDown={''}
+            type="name"
+            value={data.ownerName}
+            onChange={(e) => handleChange("ownerName", e.target.value)}
+            ref={ownerref}
+            onKeyDown={(e) => handleRef(e, emailref, restaurantref)}
             placeholder='Eg: Saumya Kanti Sarma'
+          />
+        </section>
+        <section className='filed-area'
+          style={{
+            display: displayEmail
+          }}
+        >
+          <p>Email:</p>
+          <input
+            type="email"
+            value={data.email}
+            onChange={(e) => handleChange("email", e.target.value)}
+            ref={emailref}
+            onKeyDown={(e) => handleRef(e, passwordref, ownerref)}
+            placeholder='Eg: samya@gourmate.com'
           />
         </section>
         <section className='filed-area password-filed'
@@ -48,13 +149,14 @@ const RegisterComponent = ({
         >
           <p>PASSWORD:</p>
           <input
-            type="text"
-            value=""
-            onChange=""
-            onKeyDown={''}
+            type={password}
+            value={data.password}
+            onChange={(e) => handleChange("password", e.target.value)}
+            ref={passwordref}
+            onKeyDown={(e) => handleRef(e, restaurantref, ownerref)}
             placeholder='•••••••••'
           />
-          <img src="/close-eye.svg" alt="" />
+          <img src={image} onClick={HandleTogglePassword} />
         </section>
 
 
@@ -65,6 +167,7 @@ const RegisterComponent = ({
           borderRadius={"16px"}
           border={"none"}
           text={btnTxt || "Continue"}
+          onclick={handleSubmit}
         />
       </div>
     </>

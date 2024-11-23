@@ -20,7 +20,6 @@ const BtnComponent = ({
     <button
       disabled={disable}
       style={{
-        backgroundColor: backgroundColor,
         fontSize: fontSize,
         letterSpacing: letterSpacing,
         backgroundColor: hover ? 'black' : backgroundColor,

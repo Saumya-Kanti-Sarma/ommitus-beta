@@ -28,6 +28,7 @@ const RestaurantCreateAccount = () => {
           <RegisterComponent
             parentWidth={"65%"}
             parentHeight={"40vh"}
+            url={"/restaurant/create-account"}
           />
           <p className='already-have-account'>Already have an account? <Link to={"/restaurant/login-account"}>Login</Link> </p>
           <br />
@@ -36,7 +37,7 @@ const RestaurantCreateAccount = () => {
           <BtnComponent
             backgroundColor={"#fff"}
             color={"#000"}
-            text={"Continue with GOOGLE"}
+            text={"Need Any Help"}
             width={"65%"}
             border={"1px solid black"}
             fontSize={"18px"}

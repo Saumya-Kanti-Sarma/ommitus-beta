@@ -9,6 +9,7 @@
   padding: 20px;
   background-color: var(--green);
   border-radius: 18px;
+  min-height: 400px;
 }
 
 .filed-area {

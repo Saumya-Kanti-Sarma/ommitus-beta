@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Toaster } from "react-hot-toast"
 
 // ALL RESTAURANT COMPONENTS
 import RestaurantCreateAccount from './pages/restaurant/CreateAccount/CreateAccount.res.jsx';
@@ -29,6 +30,7 @@ import NotFound from './pages/NotFound/NotFound.jsx';
 const App = () => {
   return (
     <>
+      <Toaster />
       <Router>
         <Routes>
           {/* Restaurant routes */}
