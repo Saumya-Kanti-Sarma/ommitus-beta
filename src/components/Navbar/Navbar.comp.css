@@ -1,0 +1,35 @@
+@import url("../../var.css");
+
+.nav-componets {
+  background-color: var(--green);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+  gap: 15px;
+  width: calc(100vw - 40px);
+  padding: 20px;
+  color: var(--white);
+  font-family: sans-serif;
+}
+
+.nav-name {
+  flex: 1;
+  font-size: 25px;
+}
+
+.nav-componets h1 {
+  cursor: pointer;
+}
+
+.nav-link-section {
+  flex: 3;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-link-section li {
+  cursor: pointer;
+  font-size: 16px;
+}
