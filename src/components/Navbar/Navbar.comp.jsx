@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import "./Navbar.comp.css";
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 const NavbarComponent = ({
   restaurantName
 }) => {
@@ -9,6 +10,45 @@ const NavbarComponent = ({
   const [activate3, setactivate3] = useState("");
   const [activate4, setactivate4] = useState("");
 
+  const navigate = useNavigate();
+  const { nameOfRestaurant, idOfRestaurant } = useParams();
+  const location = useLocation();
+  useEffect(() => {
+    // Check the current path and set the active state accordingly
+    if (location.pathname === `/restaurant/${nameOfRestaurant}/${idOfRestaurant}/profile`) {
+      setactivate0("active-link");
+      setactivate1("")
+      setactivate2("");
+      setactivate3("");
+      setactivate4("");
+
+    } else if (location.pathname === `/restaurant/${nameOfRestaurant}/${idOfRestaurant}/create-menu`) {
+      setactivate0("");
+      setactivate1("active-link")
+      setactivate2("");
+      setactivate3("");
+      setactivate4("");
+    } else if (location.pathname === `/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu/available`) {
+      setactivate0("");
+      setactivate1("")
+      setactivate2("active-link");
+      setactivate3("");
+      setactivate4("");
+    } else if (location.pathname === `/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu/un-available`) {
+      setactivate0("");
+      setactivate1("")
+      setactivate2("");
+      setactivate3("active-link");
+      setactivate4("");
+    }
+    else if (location.pathname === `/restaurant/${nameOfRestaurant}/${idOfRestaurant}/qr-code`) {
+      setactivate0("");
+      setactivate1("")
+      setactivate2("");
+      setactivate3("");
+      setactivate4("active-link");
+    }
+  }, [location.pathname, nameOfRestaurant, idOfRestaurant]);
   return (
     <>
       <nav className='nav-componets'>
@@ -20,51 +60,31 @@ const NavbarComponent = ({
         <section className='nav-elements nav-link-section'>
           <li className={`navlinks ${activate0}`}
             onClick={() => {
-              activate0 == "active-link" ? setactivate0("active-link") : setactivate0("");
-              setactivate1("");
-              setactivate2("");
-              setactivate3("");
-              setactivate4("");
+              navigate(`/restaurant/${nameOfRestaurant}/${idOfRestaurant}/profile`)
             }}
           >
-            HOME</li>
+            PROFILE</li>
           <li className={`navlinks ${activate1}`}
             onClick={() => {
-              activate1 == "active-link" ? setactivate1("active-link") : setactivate1("");
-              setactivate0("");
-              setactivate2("");
-              setactivate3("");
-              setactivate4("");
+              navigate(`/restaurant/${nameOfRestaurant}/${idOfRestaurant}/create-menu`)
             }}
           >
             CREATE MENU</li>
           <li className={`navlinks ${activate2}`}
             onClick={() => {
-              activate2 == "active-link" ? setactivate2("active-link") : setactivate2("");
-              setactivate1("");
-              setactivate0("");
-              setactivate3("");
-              setactivate4("");
+              navigate(`/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu/available`)
             }}
           >
             AVAILABLE</li>
           <li className={`navlinks ${activate3}`}
             onClick={() => {
-              activate3 == "active-link" ? setactivate3("active-link") : setactivate3("");
-              setactivate1("");
-              setactivate2("");
-              setactivate0("");
-              setactivate4("");
+              navigate(`/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu/un-available`)
             }}
           >
             UN-AVAILABLE</li>
           <li className={`navlinks ${activate4}`}
             onClick={() => {
-              activate4 == "active-link" ? setactivate4("active-link") : setactivate4("");
-              setactivate1("");
-              setactivate2("");
-              setactivate3("");
-              setactivate0("");
+              navigate(`/restaurant/${nameOfRestaurant}/${idOfRestaurant}/qr-code`)
             }}
           >
             QR-CODE</li>

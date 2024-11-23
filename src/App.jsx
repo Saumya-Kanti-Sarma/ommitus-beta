@@ -25,6 +25,7 @@ import PricingLanding from './pages/landing/Pricing/Pricing.land.jsx';
 import ContactLanding from './pages/landing/Contact/Contact.land.jsx';
 import HelpLanding from './pages/landing/Help/Help.land.jsx';
 import NotFound from './pages/NotFound/NotFound.jsx';
+import RestaurantProfile from './pages/restaurant/profile/Profile.jsx';
 
 
 const App = () => {
@@ -37,12 +38,12 @@ const App = () => {
 
           <Route path='/restaurant/create-account' element={<RestaurantCreateAccount />} />
           <Route path='/restaurant/login-account' element={<RestaurantLoginAccount />} />
-          <Route path='/restaurant/:name/:id'>
-            <Route path='home' element={<ResHome />} />
+          <Route path='/restaurant/:nameOfRestaurant/:idOfRestaurant' element={<ResHome />}>
+            <Route path='profile' element={<RestaurantProfile />} />
             <Route path='create-menu' element={<RestaurantCreateMenu />} />
-            <Route path='available' element={<Available />} />
+            <Route path='menu/available' element={<Available />} />
+            <Route path='menu/un-available' element={<Unavailable />} />
             <Route path='available/:dishId' element={<RestaurantDishDetail />} />
-            <Route path='un-availables' element={<Unavailable />} />
             <Route path='qr-code' element={<RestaurantQR />} />
           </Route>
 
