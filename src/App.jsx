@@ -23,6 +23,7 @@ import AboutLanding from './pages/landing/About/About.land.jsx';
 import PricingLanding from './pages/landing/Pricing/Pricing.land.jsx';
 import ContactLanding from './pages/landing/Contact/Contact.land.jsx';
 import HelpLanding from './pages/landing/Help/Help.land.jsx';
+import NotFound from './pages/NotFound/NotFound.jsx';
 
 
 const App = () => {
@@ -57,6 +58,9 @@ const App = () => {
           <Route path='/pricing' element={<PricingLanding />} />
           <Route path='/contact' element={<ContactLanding />} />
           <Route path='/help' element={<HelpLanding />} />
+
+          {/* 404 Not Found Route */}
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Router>
     </>
