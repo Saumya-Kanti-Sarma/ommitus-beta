@@ -1,10 +1,13 @@
 import React from 'react'
+import DishDetailComponent from '../../../components/DishDetail/DishDetail.comp'
 
 const RestaurantDishDetail = () => {
   return (
-    <div>
-      RestaurantDishDetail
-    </div>
+    <>
+      <DishDetailComponent
+        DisplayEditAndDelete={"default"} DisplayAddReview={"none"}
+      />
+    </>
   )
 }
 
