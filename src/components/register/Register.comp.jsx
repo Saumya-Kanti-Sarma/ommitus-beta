@@ -71,7 +71,7 @@ const RegisterComponent = ({
       else {
         setTimeout(() => {
           const restaurantName = response.data.data.restaurantName
-          navigate(`/restaurant/${restaurantName.replace(/\s+/g, '-')}/${response.data.data._id}/home`)
+          navigate(`/restaurant/${restaurantName.replace(/\s+/g, '-')}/${response.data.data._id}/profile`)
         }, 600);
       }
       setTimeout(() => {
