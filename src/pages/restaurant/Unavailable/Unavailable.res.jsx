@@ -6,6 +6,11 @@ const Unavailable = () => {
 
   return (
     <>
+      <head>
+        <title>
+          Un-available Dishes
+        </title>
+      </head>
       <MenuComponent
         mainUrl={`/restaurant/menu/${idOfRestaurant}&available=false`}
         onclickURL={`/restaurant/${nameOfRestaurant}/${idOfRestaurant}/available`}

@@ -5,6 +5,11 @@ const RestaurantQR = () => {
   const { nameOfRestaurant, idOfRestaurant } = useParams();
   return (
     <>
+      <head>
+        <title>
+          Get Your Personalized QR Code
+        </title>
+      </head>
       <h1 style={{ display: "flex", justifyContent: "center" }}>QR Code for your restaurant menu:</h1> <br />
       <div style={{
         backgroundColor: "white",

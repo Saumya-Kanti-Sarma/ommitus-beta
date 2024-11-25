@@ -47,11 +47,10 @@ const MenuComponent = ({ mainUrl, onclickURL }) => {
               <div className="menu-container">
                 {newMenuData.map((item) => (
                   <div key={item._id} className="menu-item" onClick={() => navigate(`${onclickURL}/${item._id}`)} >
-                    <img src={item?.image} alt={item.dishName} />
+                    <img src={item.image || "/food.png"} alt="/food.png" />
                     <div className="menu-item-content">
                       <div className="menu-item-header">
                         <span>{item.dishName}</span>
-                        <span className="menu-item-price">${item.price}</span>
                       </div>
                       <p className="menu-item-availability" style={{ color: item.available ? "#4CAF50" : "red" }}>
                         {item.available ? "Available" : "Un-available"}

@@ -258,7 +258,8 @@ const DishDetailComponent = ({ DisplayEditAndDelete, DisplayAddReview }) => {
               | {dish.available ? "Available" : "Not Available"}
             </span>
           </h2>
-          <p className="dish-price">₹{dish.price}/-</p>
+          <p className="dish-price">Full plate: ₹{dish.fullPlate}/-</p>
+          <p className="dish-price">Half plate: ₹{dish.halfPlate}/-</p>
           <p className="dish-description">{dish.description}</p>
           <div className="dish-rating">{"★".repeat(AveRatings || 0) || "Ratings un-available"}</div>
 

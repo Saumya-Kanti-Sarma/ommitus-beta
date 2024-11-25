@@ -6,6 +6,11 @@ const Available = () => {
 
   return (
     <>
+      <head>
+        <title>
+          Available Dishes
+        </title>
+      </head>
       <MenuComponent
         mainUrl={`/restaurant/menu/${idOfRestaurant}&available=true`}
         onclickURL={`/restaurant/${nameOfRestaurant}/${idOfRestaurant}/available`}

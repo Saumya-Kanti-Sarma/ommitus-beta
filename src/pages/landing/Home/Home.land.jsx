@@ -2,9 +2,14 @@ import React from 'react'
 import "./Home.land.css"
 const HomeLanding = () => {
   return (
-    <div>
+    <>
+      <head>
+        <title>
+          Welcome to Ommitus || The best Restaurant Menu Management App
+        </title>
+      </head>
       Homelanding
-    </div>
+    </>
   )
 }
 
