@@ -1,11 +1,12 @@
 //src/pages/restaurant/CreateAccount/LoginAccount.res.jsx
 
 import React from 'react'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import RegisterComponent from '../../../components/register/Register.comp.jsx'
 import BtnComponent from '../../../components/Btns/Btn.comp.jsx'
 import "./LoginAccount.res.css"
 const RestaurantLoginAccount = () => {
+  const navigate = useNavigate();
   return (
     <>
       <head>
@@ -21,6 +22,7 @@ const RestaurantLoginAccount = () => {
           <br />
           <RegisterComponent
             displayOwnerName={"none"}
+            displayEmail={"none"}
             parentWidth={"65%"}
             parentHeight={"40vh"}
             btnTxt={"Sign-In"}
@@ -40,6 +42,11 @@ const RestaurantLoginAccount = () => {
             letterSpacing={"3px"}
             borderRadius={"8px"}
           />
+          <br />
+          <Link
+            className='forgot-password-txt'
+            to={'/restaurant/forgot-password'}
+          >Forgot Password?</Link>
         </section>
 
         <aside className='reg-text-parent'>

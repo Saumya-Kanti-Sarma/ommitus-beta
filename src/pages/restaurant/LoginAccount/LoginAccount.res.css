@@ -99,3 +99,16 @@
     display: block;
   }
 }
+
+.forgot-password-txt {
+  color: var(--red);
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: ease-in-out 0.293s;
+}
+
+.forgot-password-txt:hover {
+  background-color: var(--black);
+  color: var(--white);
+}

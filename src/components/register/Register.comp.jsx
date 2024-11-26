@@ -13,7 +13,8 @@ const RegisterComponent = ({
   displayPassword,
   btnTxt,
   displayEmail,
-  url
+  url,
+  PasswordTxt
 }) => {
   const restaurantref = useRef(null);
   const ownerref = useRef(null);
@@ -58,31 +59,49 @@ const RegisterComponent = ({
   }
 
   const handleSubmit = async () => {
-    const toastID = toast.loading("creating your new account..")
-    try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}${url}`, data);
-      //console.log(response.data.data.token);
-      Cookies.set('restaurantCredentialToken', `${response.data.data.token}`, { expires: 7 });
-      const cookie = Cookies.get("restaurantCredentialToken");
 
-      if (cookie == undefined) {
-        toast.error("cannot validate restaurant credentials, please contact us!")
-      }
-      else {
+    if (url !== "/restaurant/forgot-password") {
+      const toastID = toast.loading("creating your new account..")
+      try {
+
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}${url}`, data);
+        //console.log(response.data.data.token);
+        Cookies.set('restaurantCredentialToken', `${response.data.data.token}`, { expires: 7 });
+        const cookie = Cookies.get("restaurantCredentialToken");
+
+        if (cookie == undefined) {
+          toast.error("cannot validate restaurant credentials, please contact us!")
+        }
+        else {
+          setTimeout(() => {
+            const restaurantName = response.data.data.restaurantName
+            navigate(`/restaurant/${restaurantName.replace(/\s+/g, '-')}/${response.data.data._id}/profile`)
+          }, 600);
+        }
         setTimeout(() => {
-          const restaurantName = response.data.data.restaurantName
-          navigate(`/restaurant/${restaurantName.replace(/\s+/g, '-')}/${response.data.data._id}/profile`)
-        }, 600);
-      }
-      setTimeout(() => {
-        toast.dismiss(toastID);
-        toast.success(response.data.message);
+          toast.dismiss(toastID);
+          toast.success(response.data.message);
 
-      }, 300);
-    } catch (error) {
-      console.log(error.response.data);
-      toast.dismiss(toastID);
-      toast.error(error.response.data.message)
+        }, 300);
+      } catch (error) {
+        toast.dismiss(toastID);
+        console.log(error);
+        toast.error(error.response.data.message)
+
+      }
+    }
+    else {
+      const toastID = toast.loading("Changing Password..");
+      try {
+        const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}${url}`, data);
+        setTimeout(() => {
+          toast.dismiss(toastID);
+          toast.success(response.data.message);
+
+        }, 300);
+      } catch (error) {
+        toast.dismiss(toastID)
+      }
     }
 
   };
@@ -109,7 +128,7 @@ const RegisterComponent = ({
             onChange={(e) => handleChange("restaurantName", e.target.value)}
             onKeyDown={(e) => handleRef(e, ownerref, null)}
             ref={restaurantref}
-            placeholder='Eg: Gourmate Heavens'
+            placeholder='Enter the name of your restaurant'
           />
         </section>
         <section className='filed-area'
@@ -124,7 +143,7 @@ const RegisterComponent = ({
             onChange={(e) => handleChange("ownerName", e.target.value)}
             ref={ownerref}
             onKeyDown={(e) => handleRef(e, emailref, restaurantref)}
-            placeholder='Eg: Saumya Kanti Sarma'
+            placeholder='Enter the owner name'
           />
         </section>
         <section className='filed-area'
@@ -139,7 +158,7 @@ const RegisterComponent = ({
             onChange={(e) => handleChange("email", e.target.value)}
             ref={emailref}
             onKeyDown={(e) => handleRef(e, passwordref, ownerref)}
-            placeholder='Eg: samya@gourmate.com'
+            placeholder='Enter your email ID'
           />
         </section>
         <section className='filed-area password-filed'
@@ -147,7 +166,7 @@ const RegisterComponent = ({
             display: displayPassword
           }}
         >
-          <p>PASSWORD:</p>
+          <p>{PasswordTxt || "PASSWORD:"}</p>
           <input
             type={password}
             value={data.password}

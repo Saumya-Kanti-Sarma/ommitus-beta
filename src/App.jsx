@@ -26,6 +26,7 @@ import ContactLanding from './pages/landing/Contact/Contact.land.jsx';
 import HelpLanding from './pages/landing/Help/Help.land.jsx';
 import NotFound from './pages/NotFound/NotFound.jsx';
 import RestaurantProfile from './pages/restaurant/profile/Profile.jsx';
+import Forgotpassword from './pages/restaurant/Forgot-password/Forgotpassword.res.jsx';
 
 
 const App = () => {
@@ -38,6 +39,7 @@ const App = () => {
 
           <Route path='/restaurant/create-account' element={<RestaurantCreateAccount />} />
           <Route path='/restaurant/login-account' element={<RestaurantLoginAccount />} />
+          <Route path='/restaurant/forgot-password' element={<Forgotpassword />} />
           <Route path='/restaurant/:nameOfRestaurant/:idOfRestaurant' element={<ResHome />}>
             <Route path='profile' element={<RestaurantProfile />} />
             <Route path='create-menu' element={<RestaurantCreateMenu />} />
