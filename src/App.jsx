@@ -13,6 +13,7 @@ import Unavailable from './pages/restaurant/Unavailable/Unavailable.res.jsx';
 import RestaurantQR from './pages/restaurant/QR/Qr.res.jsx';
 
 // ALL CUSTOMER COMPONENTS
+import Customer from './pages/customer/Customer.jsx';
 import CustomerHome from './pages/customer/Home/Home.cus.jsx';
 import CustomerMenu from './pages/customer/Menus/Menu.cus.jsx';
 import CustomerDish from './pages/customer/Dish/Dish.cus.jsx';
@@ -50,11 +51,11 @@ const App = () => {
           </Route>
 
           {/* Customer routes */}
-          <Route path='/customer/restaurant/:name'>
+          <Route path='/customer/restaurant/:nameOfRestaurant/:idOfRestaurant' element={<Customer />}>
             <Route path='home' element={<CustomerHome />} />
-            <Route path='menus' element={<CustomerMenu />} />
-            <Route path='menus/:dishId' element={<CustomerDish />} />
-            <Route path='menus/cart' element={<CustomerCart />} />
+            <Route path='menu' element={<CustomerMenu />} />
+            <Route path=':dishId' element={<CustomerDish />} />
+            <Route path='cart' element={<CustomerCart />} />
           </Route >
 
           {/* Landing page */}

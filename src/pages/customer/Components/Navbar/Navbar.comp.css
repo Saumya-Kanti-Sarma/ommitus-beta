@@ -1,0 +1,77 @@
+.navbar {
+  background-color: #1191D0;
+  height: 40px;
+  align-items: center;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.navbar-title {
+  margin-left: 10px;
+}
+
+.navbar-title h1 {
+  font-family: sans-serif;
+  letter-spacing: 1px;
+  font-size: 18px;
+}
+
+.navbar-title p {
+  font-family: sans-serif;
+  font-size: 12px;
+  text-align: start;
+  opacity: 0.5;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+}
+
+.navbar img {
+  width: 34px;
+  filter: invert(100%);
+  cursor: pointer;
+}
+
+
+.togglebar {
+  position: fixed;
+  top: 0;
+  right: -100%;
+  /* Hidden by default */
+  width: 250px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+  transition: right 0.3s ease;
+  z-index: 10;
+  color: #000;
+}
+
+.togglebar.visible {
+  right: 0;
+  /* Slide into view */
+}
+
+.togglebar ul {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  height: 80%;
+  margin-top: 30px;
+  gap: 10px;
+  list-style: none;
+  justify-content: space-between;
+}
+
+.togglebar ul li {
+  list-style: none;
+  padding: 10px 20px;
+  width: 100%;
+  text-align: center;
+}
+
+.list-active {
+  background-color: #005680;
+  color: #fff;
+}
