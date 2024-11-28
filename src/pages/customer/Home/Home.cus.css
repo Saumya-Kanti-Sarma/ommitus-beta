@@ -1,9 +1,13 @@
 .home-main {
-  height: calc(100vh - 100px);
+  height: calc(100vh - 60px);
   min-height: 650px;
   width: 100%;
   overflow: auto;
   position: relative;
+}
+
+.home-main::-webkit-scrollbar {
+  display: none;
 }
 
 .restaurant-info {
