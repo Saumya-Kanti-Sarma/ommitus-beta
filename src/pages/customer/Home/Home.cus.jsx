@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 // components
 import Button from '../components/Btn/Button.comp.jsx';
 import Footer from '../components/Footer/Footer.comp.jsx';
@@ -11,7 +11,8 @@ import './Home.cus.css';
 
 const CustomerHome = () => {
   const [RestaurantData, setRestaurantData] = useState(null);
-  const { idOfRestaurant } = useParams();
+  const { idOfRestaurant, nameOfRestaurant } = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function fetchData() {
@@ -55,6 +56,7 @@ const CustomerHome = () => {
             width: "100%",
             height: "70px"
           }}
+          onClick={() => navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu`)}
         />
       </div>
       <div className="highlight-items">
