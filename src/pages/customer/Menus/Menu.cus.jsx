@@ -27,23 +27,22 @@ const CustomerMenu = () => {
     return (
       <>
 
-        <section className='cus-menu-section'>
-          {Array(8).fill().map((_, index) => (
-            <div key={index} className='menu-item-area-animated add-animation'>
-              <img src="/food.png" alt="" />
-              <span></span>
-            </div>
+        <span className='menu-span-container' >
+          <section className='cus-menu-section'>
+            {Array(8).fill().map((_, index) => (
+              <div key={index} className='menu-item-area-animated add-animation'>
+                <img src="/food.png" alt="" />
+                <span></span>
+              </div>
 
-          ))}
+            ))}
 
-        </section>
+          </section>
+        </span>
       </>
     )
   }
 
-  const handleDishNavigation = (dishId) => {
-    navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${dishId}`)
-  }
   return (
     <>
       <h1 className='cus-menu-heading'>| MENU |</h1>
@@ -55,9 +54,8 @@ const CustomerMenu = () => {
 
             <p>{data.starter?.length > 0 ? "|STARTER|" : ""}</p>
             {data.starter?.map((menuItem, index) => (
-              <span key={index} >
+              <span key={index} className='menu-span-container'>
                 <div className='menu-item-area' onClick={() => {
-
                   navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
                 }}>
                   <img
@@ -87,9 +85,11 @@ const CustomerMenu = () => {
             <br />
             <p>{data.mainCourse?.length > 0 ? "|MAIN COURSE|" : ""}</p>
             {data.mainCourse?.map((menuItem, index) => (
-              <span key={index} >
+              <span key={index} className='menu-span-container'>
                 <p>{menuItem.title}</p>
-                <div className='menu-item-area'>
+                <div className='menu-item-area' onClick={() => {
+                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
+                }}>
                   <img
                     src={menuItem.image || "/food.png"}
                     alt={menuItem.name || "Dish Image"}
@@ -118,9 +118,11 @@ const CustomerMenu = () => {
 
             <p>{data.curry?.length > 0 ? "| CURRY |" : ""}</p>
             {data.curry?.map((menuItem, index) => (
-              <span key={index} >
+              <span key={index} className='menu-span-container'>
                 <p>{menuItem.title}</p>
-                <div className='menu-item-area'>
+                <div className='menu-item-area' onClick={() => {
+                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
+                }}>
                   <img
                     src={menuItem.image || "/food.png"}
                     alt={menuItem.name || "Dish Image"}
@@ -148,9 +150,11 @@ const CustomerMenu = () => {
             <br />
             <p>{data.beverages?.length > 0 ? "| BEVERAGES |" : ""}</p>
             {data.beverages?.map((menuItem, index) => (
-              <span key={index} >
+              <span key={index} className='menu-span-container'>
                 <p>{menuItem.title}</p>
-                <div className='menu-item-area'>
+                <div className='menu-item-area' onClick={() => {
+                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
+                }}>
                   <img
                     src={menuItem.image || "/food.png"}
                     alt={menuItem.name || "Dish Image"}
@@ -179,9 +183,11 @@ const CustomerMenu = () => {
 
             <p>  {data.special?.length > 0 ? "| SPECIAL |" : ""}</p>
             {data.special?.map((menuItem, index) => (
-              <span key={index} >
+              <span key={index} className='menu-span-container'>
                 <p>{menuItem.title}</p>
-                <div className='menu-item-area'>
+                <div className='menu-item-area' onClick={() => {
+                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
+                }}>
                   <img
                     src={menuItem.image || "/food.png"}
                     alt={menuItem.name || "Dish Image"}
