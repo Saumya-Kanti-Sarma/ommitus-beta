@@ -1,0 +1,133 @@
+@import url("../../../var.css");
+
+.landing-main {
+  height: 100vh;
+  width: 100vw;
+  min-height: 800px;
+  overflow: hidden;
+}
+
+.landing-main nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: calc(100% - 80px);
+  padding: 0 40px;
+  height: 90px;
+  border-bottom: 1px solid var(--green);
+}
+
+.landing-main nav h1 {
+  display: flex;
+  align-items: center;
+}
+
+.landing-main nav h1 a {
+  color: var(--green);
+}
+
+.nav-logo {
+  width: 66px;
+}
+
+.landing-main nav a {
+  color: var(--black);
+  cursor: pointer;
+}
+
+.landing-main nav button {
+  background-color: transparent;
+  border: none;
+  font-size: 18px;
+  padding: 0 25px;
+  color: var(--black);
+  cursor: pointer;
+}
+
+.landing-content-area {
+  height: calc(100vh - 90px);
+  width: 100%;
+  overflow: auto;
+  overflow-x: hidden;
+  display: flex;
+}
+
+.landing-content-area section,
+.landing-content-area aside {
+  width: 50%;
+}
+
+.landing-content-area section {
+  padding-left: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+
+.landing-content-area aside {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.landing-content-area aside h1 {
+  color: var(--green);
+  font-size: 2.4rem;
+  padding: 20px;
+  border-radius: 6px;
+  transition: 0.153s ease-in-out;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  cursor: pointer;
+}
+
+.landing-content-area aside h1:hover {
+  background-color: var(--green);
+  color: var(--white);
+  text-decoration: none;
+}
+
+.aside-logo {
+  width: 70%;
+}
+
+.landing-heading {
+  font-size: 4rem;
+  color: #000000c0;
+  text-align: center;
+}
+
+.landing-heading b {
+  color: var(--green);
+}
+
+.landing-sub-heading {
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.landing-btn-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 34px;
+}
+
+.landing-btn {
+  font-size: 3rem;
+  padding: 20px;
+  border-radius: 12px;
+  border: none;
+  background-color: var(--green);
+  color: var(--white);
+  cursor: pointer;
+  transition: 0.15s ease-in-out;
+}
+
+.landing-btn:hover {
+  opacity: 0.89;
+}

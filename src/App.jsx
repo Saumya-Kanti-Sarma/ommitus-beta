@@ -17,7 +17,6 @@ import Customer from './pages/customer/Customer.jsx';
 import CustomerHome from './pages/customer/Home/Home.cus.jsx';
 import CustomerMenu from './pages/customer/Menus/Menu.cus.jsx';
 import CustomerDish from './pages/customer/Dish/Dish.cus.jsx';
-import CustomerCart from './pages/customer/Cart/Cart.cus.jsx';
 
 //ALL LANDING PAGE COMPONENTS
 import HomeLanding from './pages/landing/Home/Home.land.jsx';
@@ -55,7 +54,6 @@ const App = () => {
             <Route path='home' element={<CustomerHome />} />
             <Route path='menu' element={<CustomerMenu />} />
             <Route path=':dishId' element={<CustomerDish />} />
-            <Route path='cart' element={<CustomerCart />} />
           </Route >
 
           {/* Landing page */}
