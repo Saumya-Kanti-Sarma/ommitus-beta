@@ -1,8 +1,9 @@
 import React from 'react';
 import "./Home.land.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const HomeLanding = () => {
+  const navigate = useNavigate();
   return (
     <>
       <head>
@@ -29,7 +30,7 @@ const HomeLanding = () => {
             <h1 className='landing-heading'>
               Welcome to <span>OMMITUS MENU</span>, your one stop solution to bring your menu <span>ONLINE</span>...
             </h1>
-            <button className='get-started-btn opacity-trans'> Get Started </button>
+            <button className='get-started-btn opacity-trans' onClick={() => navigate('/restaurant/create-account')}> Get Started </button>
           </div>
           <div className="landing-main-child landing-main-logo-area">
 
@@ -50,7 +51,7 @@ const HomeLanding = () => {
         <h1 style={{ textAlign: "center" }}>BRING YOUR MENU ONLINE <span style={{ color: "#f96305" }}>TODAY!</span></h1>
         <br />
         <div style={{ display: "flex", justifyContent: "center" }}>
-          <button className='get-started-btn opacity-trans' style={{ width: "30%" }}> GET STARTED NOW </button>
+          <button className='get-started-btn opacity-trans' style={{ width: "30%" }} onClick={() => navigate('/restaurant/create-account')}> GET STARTED NOW </button>
         </div>
         <br /><br /><br /><br /><br /><br />
         <section className='landing-features-section'>
@@ -101,7 +102,7 @@ const HomeLanding = () => {
         </section>
         <br /><br /><br />
         <h1 style={{ textAlign: "center" }}>
-          DON’T WAIT FOR RIGHT TIME <span style={{ color: "#f96305" }}>REGISTER NOW</span>
+          DON’T WAIT FOR RIGHT TIME <Link style={{ color: "#f96305", textDecoration: "none", }} to={'/restaurant/create-account'}>REGISTER NOW</Link>
         </h1>
 
       </main>
