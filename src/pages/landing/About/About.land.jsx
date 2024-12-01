@@ -2,7 +2,7 @@ import React from 'react'
 import "./About.land.css"
 const AboutLanding = () => {
   return (
-    <div>
+    <div style={{ backgroundColor: "orange" }}>
       Aboutlanding
     </div>
   )
