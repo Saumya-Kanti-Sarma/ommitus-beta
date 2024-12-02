@@ -35,7 +35,8 @@
 
 .parent-menu-container {
   width: 100%;
-  /* background-color: #4CAF50; */
+  padding-bottom: 20px;
+  /* background-color: #4CAF50 */
   overflow: hidden;
   display: flex;
   justify-content: space-between;
@@ -60,12 +61,14 @@
   border: 1px solid #ddd;
   padding: 15px;
   margin: 10px;
+  margin-bottom: 0;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: transform 0.3s;
+  position: relative;
 }
 
 .menu-item:hover {
@@ -79,6 +82,21 @@
   border-radius: 8px;
   object-fit: cover;
   margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.menu-get-details {
+  position: absolute;
+  background-color: #dddddd6c;
+  width: 90%;
+  width: 200px;
+  height: 135px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
 }
 
 /* Content within each item */
@@ -97,6 +115,15 @@
   font-weight: 600;
 }
 
+.menu-item-header span {
+  cursor: pointer;
+  transition: 0.166s ease-in-out;
+}
+
+.menu-item-header span:hover {
+  color: #0064fa;
+}
+
 .menu-item-price {
   color: #4CAF50;
   font-weight: 500;
@@ -107,7 +134,23 @@
   color: #999;
   font-size: 0.9rem;
   margin-top: 8px;
+  cursor: pointer;
+  padding-bottom: 20px;
 }
+
+.menu-edit-availability {
+  position: absolute;
+  background-color: red;
+  bottom: -15%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: none;
+}
+
 
 @media (max-width: 1000px) {
   .menu-item-header {
