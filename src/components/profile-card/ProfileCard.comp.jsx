@@ -34,7 +34,7 @@ const ProfileCardComponent = ({ img, name, description }) => {
   };
 
   const handleSubmit = async () => {
-    console.log(data);
+    // console.log(data);
     const id = toast.loading("saving changes...")
     try {
       await axios.put(
@@ -68,7 +68,7 @@ const ProfileCardComponent = ({ img, name, description }) => {
           ...prevData,
           ...response.data.restaurantDetails,
         }));
-        console.log("proffile data", data);
+        //console.log("proffile data", data);
 
       } catch (error) {
         console.error("Error fetching data:", error);

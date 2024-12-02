@@ -73,9 +73,11 @@ const MenuComponent = ({ mainUrl, onclickURL }) => {
                     }}
                   >
 
-                    <img src={item.image || "/food.png"} alt="/food.png"
-                      onMouseEnter={() => setMenuGetDetails(item._id)}
-                    />
+                    <span className="menu-image-span">
+                      <img src={item.image || "/food.png"} alt="/food.png"
+                        onMouseEnter={() => setMenuGetDetails(item._id)}
+                      />
+                    </span>
                     <p className="menu-get-details"
                       style={{
                         display: menuGetDetails == item._id ? "" : "none"

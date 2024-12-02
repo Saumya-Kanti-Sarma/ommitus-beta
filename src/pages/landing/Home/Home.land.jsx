@@ -1,9 +1,30 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Home.land.css";
 import { Link, useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
+import axios from 'axios';
 
 const HomeLanding = () => {
+  const [token, setToken] = useState(null);
   const navigate = useNavigate();
+  useEffect(() => {
+    const cookie = Cookies.get("restaurantCredentialToken");
+    if (cookie !== undefined) {
+      async function getUser() {
+        try {
+          const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/restaurant/search/${cookie}`);
+          setToken(response.data); // Set token once
+          console.log(response.data); // Log the response directly
+        } catch (error) {
+          console.error("Error fetching restaurant data:", error);
+        }
+      }
+      getUser();
+    } else {
+      console.log("No token found");
+    }
+  }, []); // Empty dependency array to run only on mount
+
   return (
     <>
       <head>
@@ -21,7 +42,15 @@ const HomeLanding = () => {
           <button>Contact</button>
           <button>FaQ</button>
           <button>Pricing</button>
-          <Link to={`restaurant/create-account`} >Get Started</Link>
+          <Link
+            to={
+              !token
+                ? "/restaurant/create-account"
+                : `/restaurant/${token.restaurantName.replace(/\s+/g, "-")}/${token.restaurantID}/profile`
+            }
+          >
+            {token?.restaurantName || "Get Started"}
+          </Link>
         </ul>
       </nav>
       <main className='landing-main'>

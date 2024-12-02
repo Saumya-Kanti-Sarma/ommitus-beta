@@ -4,7 +4,7 @@ import axios from "axios";
 import "./Register.comp.css";
 import toast from 'react-hot-toast';
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 const RegisterComponent = ({
   parentWidth,
   parentHeight,

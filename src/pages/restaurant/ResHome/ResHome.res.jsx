@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NavbarComponent from '../../../components/Navbar/Navbar.comp'
 import { Outlet } from "react-router-dom";
-import "./ResHome.res.css"
+import "./ResHome.res.css";
+import { Link } from 'react-router-dom';
 const ResHome = () => {
-
+  const [support, setSupport] = useState('none');
   return (
     <>
       <main id='res-main-area'>
@@ -14,6 +15,19 @@ const ResHome = () => {
 
         <section id='outlet-area-restaurant'>
           <Outlet />
+          <p id='customer-support-txt'
+            style={{ display: support }}
+            onMouseEnter={() => setSupport("")}
+            onMouseLeave={() => setSupport("none")}
+          >Need any help? Talk to our customer <Link to={"#"}>support</Link></p>
+          <button id='whatsapp-btn'
+          >
+            <img src="/whatsapp.svg"
+              onMouseEnter={() => setSupport("")}
+              onMouseLeave={() => setSupport("none")}
+              id="customer-supporrt-whatsapp" />
+
+          </button>
         </section>
       </main>
     </>

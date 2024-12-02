@@ -51,17 +51,16 @@ const NavbarComponent = ({
     <>
       <nav className='nav-componets'>
         <section className='nav-elements nav-name'>
-          <h1>
-            {nameOfRestaurant || "Name Of Restaurant"}
-          </h1>
-        </section>
-        <section className='nav-elements nav-link-section'>
-          <li className={`navlinks ${activate0}`}
+          <h1
+            className={`${activate0}`}
             onClick={() => {
               navigate(`/restaurant/${nameOfRestaurant}/${idOfRestaurant}/profile`)
             }}
           >
-            PROFILE</li>
+            {nameOfRestaurant || "Name Of Restaurant"}
+          </h1>
+        </section>
+        <section className='nav-elements nav-link-section'>
           <li className={`navlinks ${activate1}`}
             onClick={() => {
               navigate(`/restaurant/${nameOfRestaurant}/${idOfRestaurant}/create-menu`)

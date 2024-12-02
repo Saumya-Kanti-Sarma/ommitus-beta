@@ -75,13 +75,25 @@
   transform: scale(1.02);
 }
 
+.menu-image-span {
+  width: 85%;
+  height: 200px;
+  max-width: 200px;
+  max-height: 200px;
+  background-color: #c7c7c7bb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 15px;
+  border-radius: 8px;
+}
+
 .menu-item img {
-  width: 90%;
+  width: 100%;
   max-width: 200px;
   max-height: 200px;
   border-radius: 8px;
   object-fit: cover;
-  margin-bottom: 15px;
   cursor: pointer;
 }
 
