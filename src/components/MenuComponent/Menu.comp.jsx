@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import "./menu.comp.css";
+import "./Menu.comp.css";
 
 const MenuComponent = ({ mainUrl, onclickURL }) => {
   const [newMenuData, setNewMenuData] = useState([]);
