@@ -59,6 +59,7 @@ const CustomerHome = () => {
           onClick={() => navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu`)}
         />
       </div>
+      <br /><br /><br />
       <div className="highlight-items">
         <h2> |Highlights|</h2>
         {RestaurantData.highlights && RestaurantData.highlights.length > 0 ? (
@@ -76,6 +77,8 @@ const CustomerHome = () => {
         )}
         <Button
           label="VISIT OUR MENU"
+          onClick={() => navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu`)}
+
         />
         <br />
       </div>

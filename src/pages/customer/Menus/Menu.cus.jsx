@@ -65,7 +65,7 @@ const CustomerMenu = () => {
                   />
                   <span>
                     <div className="cus-dish-name">
-                      <h3>{menuItem.name || "Dish Name"}</h3>
+                      <h3>{menuItem.dishName || "Dish Name"}</h3>
                       <p style={{ color: menuItem.veg ? "green" : "red" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>

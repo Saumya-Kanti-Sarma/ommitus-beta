@@ -1,12 +1,18 @@
 .cus-dish-main {
   height: calc(100vh - 60px);
   width: 100%;
-  overflow: hidden;
+  /* background-color: aqua; */
+  overflow: auto;
+}
+
+.cus-dish-main-child {
   display: flex;
   justify-content: start;
   align-items: center;
   flex-direction: column;
+  width: 100%;
   gap: 20px;
+
 }
 
 .cus-dish-area,
@@ -30,7 +36,8 @@
   background-color: transparent;
   border: 1px solid black;
   max-width: 800px;
-  min-height: 300px;
+  min-height: 200px;
+  height: 45vh;
   overflow: hidden;
 }
 
@@ -104,4 +111,29 @@
 
 .cus-dishmain-text-section {
   background-color: transparent;
+}
+
+
+.review-stars {
+  font-size: 4rem;
+  color: #ffbb00;
+}
+
+.all-reviews-arre {
+  height: calc(100vh - 60px);
+  width: 100%;
+  background-color: #D9D9D9;
+}
+
+.give-review {
+  width: calc(90% - 20px);
+  padding: 10px;
+  height: 100px;
+  resize: none;
+}
+
+#reviewer-name {
+  width: calc(90% - 10px);
+  font-size: 16px;
+  padding: 10px 5px;
 }

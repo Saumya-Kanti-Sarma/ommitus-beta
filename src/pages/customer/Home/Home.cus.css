@@ -13,11 +13,11 @@
 .restaurant-info {
   text-align: center;
   padding: 20px;
-  height: 100%;
+  /* height: 0%; */
 }
 
 .home-img-display {
-  height: 29%;
+  height: 400px;
   background-color: transparent;
 }
 
