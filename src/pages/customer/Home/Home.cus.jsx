@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 // components
-import Button from '../components/Btn/Button.comp.jsx';
+import Button from '../Components/Btn/Button.comp.jsx';
 import Footer from '../components/Footer/Footer.comp.jsx';
 import ImgScroller from '../components/ImgScroller/ImgScroller.comp.jsx';
 

@@ -116,67 +116,6 @@ const CustomerDish = () => {
           styles={{ width: "90%", padding: "20px 0", fontSize: "18px", maxWidth: "800px" }}
           onClick={() => navigate(-1)}
         />
-
-        <h1>Give a review</h1>
-        <div className="review-stars">
-          {[...Array(5)].map((_, index) => (
-            <span
-              key={index}
-              className="review-stars"
-              onClick={() => handleStarClick(index)}
-              style={{
-                filter: `grayscale(${index <= selectedStar ? 0 : 100}%)`,
-              }}
-            >
-              ★
-            </span>
-          ))}
-        </div>
-        <input
-          type="text"
-          placeholder="Your name Alex?"
-          id="reviewer-name"
-          ref={nameRef}
-          name="customerName"
-          onChange={handleChange}
-          onKeyDown={(e) => handleRef(e, reviewRef)}
-        />
-        <textarea
-          className="give-review"
-          placeholder="Please share us your experience with the dish..."
-          ref={reviewRef}
-          name="review"
-          onChange={handleChange}
-          onKeyDown={(e) => handleRef(e, nameRef)}
-        ></textarea>
-        <p>
-          Gender: <input
-            type="radio"
-            id="male-tick-btn"
-            name="gender"
-            value="true"
-            onChange={() => handleGenderChange(true)}
-            checked={ratingsData.gender === true}
-          />
-          <label htmlFor="male-tick-btn">Male</label>
-
-          <input
-            type="radio"
-            id="female-tick-btn"
-            name="gender"
-            value="false"
-            onChange={() => handleGenderChange(false)}
-            checked={ratingsData.gender === false}
-          />
-          <label htmlFor="female-tick-btn">Female</label>
-        </p>
-
-        <Button
-          label={"Submit"}
-          styles={{ width: "40%", padding: "20px 0", fontSize: "18px", maxWidth: "800px", backgroundColor: "#02ce46" }}
-          onClick={handleSubmitRatings}
-        />
-        <div className="all-reviews-arre"></div>
       </div>
     </main>
   );
