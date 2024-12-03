@@ -3,8 +3,8 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 // components
 import Button from '../Components/Btn/Button.comp.jsx';
-import Footer from '../components/Footer/Footer.comp.jsx';
-import ImgScroller from '../components/ImgScroller/ImgScroller.comp.jsx';
+import Footer from '../Components/Footer/Footer.comp.jsx';
+import ImgScroller from '../Components/ImgScroller/ImgScroller.comp.jsx';
 
 // css
 import './Home.cus.css';
