@@ -20,7 +20,7 @@ const RestaurantQR = () => {
         justifyContent: "center"
       }}>
         <QRCode
-          value={`https://ommitus.netlify.app/customer/menu/${nameOfRestaurant}/${idOfRestaurant}`}
+          value={`https://230239cf.ommitus.pages.dev/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/home`}
           style={{
             backgroundColor: "white",
             padding: "15px",

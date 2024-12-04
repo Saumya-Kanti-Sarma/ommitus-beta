@@ -59,7 +59,7 @@ const RegisterComponent = ({
   }
 
   const handleSubmit = async () => {
-    console.log(`${import.meta.env.VITE_BACKEND_URL}${url}`);
+    // console.log(`${import.meta.env.VITE_BACKEND_URL}${url}`);
 
     if (url !== "/restaurant/forgot-password") {
       const toastID = toast.loading("creating your new account..")
