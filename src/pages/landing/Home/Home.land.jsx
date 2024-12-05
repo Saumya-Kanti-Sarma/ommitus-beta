@@ -77,10 +77,10 @@ const HomeLanding = () => {
           </section>
         </div>
         <br /><br /><br /><br /><br /><br />
-        <h1 style={{ textAlign: "center" }}>BRING YOUR MENU ONLINE <span style={{ color: "#f96305" }}>TODAY!</span></h1>
+        <h1 className='bring-your-menu'>BRING YOUR MENU ONLINE <span style={{ color: "#f96305" }}>TODAY!</span></h1>
         <br />
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <button className='get-started-btn opacity-trans' style={{ width: "30%" }} onClick={() => navigate('/restaurant/create-account')}> GET STARTED NOW </button>
+        <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+          <button className='get-started-btn opacity-trans' onClick={() => navigate('/restaurant/create-account')}> GET STARTED NOW </button>
         </div>
         <br /><br /><br /><br /><br /><br />
         <section className='landing-features-section'>
@@ -130,9 +130,6 @@ const HomeLanding = () => {
           </ul>
         </section>
         <br /><br /><br />
-        <h1 style={{ textAlign: "center" }}>
-          DON’T WAIT FOR RIGHT TIME <Link style={{ color: "#f96305", textDecoration: "none", }} to={'/restaurant/create-account'}>REGISTER NOW</Link>
-        </h1>
 
       </main>
     </>

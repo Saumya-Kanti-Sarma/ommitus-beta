@@ -86,9 +86,13 @@ const CustomerDish = () => {
   if (!data) {
     return (
       <main className="cus-dish-main">
-        <div className="cus-dish-area-loading">
-          <img src="/food.png" alt="Loading" />
-          <section className="cus-dishmain-text-section-loading"></section>
+        <div style={{
+          display: "flex", justifyContent: "center", alignItems: "center", height: "100%", width: "100%"
+        }}>
+          <div className="cus-dish-area-loading">
+            <img src="/food.png" alt="Loading" />
+            <section className="cus-dishmain-text-section-loading"></section>
+          </div>
         </div>
       </main>
     );
