@@ -96,6 +96,10 @@
   filter: none;
 }
 
+.category-tag {
+  margin-left: 10px;
+}
+
 .menu-item-area span,
 .menu-item-area-animated span {
   background-color: #B5B5B5;
@@ -119,4 +123,6 @@
 
 .cus-dish-descp {
   opacity: 0.55;
+  font-size: 14px;
+  margin-bottom: 10px;
 }

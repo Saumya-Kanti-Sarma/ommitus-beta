@@ -2,9 +2,8 @@ import React, { useState } from 'react'
 import NavbarComponent from '../../../components/Navbar/Navbar.comp'
 import { Outlet } from "react-router-dom";
 import "./ResHome.res.css";
-import { Link } from 'react-router-dom';
 const ResHome = () => {
-  const [support, setSupport] = useState('none');
+  // const [support, setSupport] = useState('none');
   return (
     <>
       <main id='res-main-area'>
@@ -15,7 +14,8 @@ const ResHome = () => {
 
         <section id='outlet-area-restaurant'>
           <Outlet />
-          <p id='customer-support-txt'
+          {/* Save it for future */}
+          {/* <p id='customer-support-txt'
             style={{ display: support }}
             onMouseEnter={() => setSupport("")}
             onMouseLeave={() => setSupport("none")}
@@ -27,7 +27,7 @@ const ResHome = () => {
               onMouseLeave={() => setSupport("none")}
               id="customer-supporrt-whatsapp" />
 
-          </button>
+          </button> */}
         </section>
       </main>
     </>

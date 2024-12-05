@@ -48,16 +48,16 @@
   justify-content: start;
   gap: 25px;
   width: 100%;
-  padding-left: 30px;
+  padding-left: 85px;
 }
 
 /* Individual menu item styling */
 .menu-item {
   flex: 1 1 calc(20% - 15px);
   /* 5 items per row */
-  width: 300px;
+  width: 280px;
   height: 200px;
-  max-width: 300px;
+  max-width: 280px;
   border: 1px solid #ddd;
   padding: 15px;
   margin: 10px;

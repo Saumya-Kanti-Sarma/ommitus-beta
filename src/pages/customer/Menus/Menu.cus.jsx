@@ -52,7 +52,7 @@ const CustomerMenu = () => {
 
             {/* Render the menu items */}
 
-            <p>{data.starter?.length > 0 ? "|STARTER|" : ""}</p>
+            <p className='category-tag'>{data.starter?.length > 0 ? "|STARTER|" : ""}</p>
             {data.starter?.map((menuItem, index) => (
               <span key={index} className='menu-span-container'>
                 <div className='menu-item-area' onClick={() => {
@@ -65,7 +65,7 @@ const CustomerMenu = () => {
                   />
                   <span>
                     <div className="cus-dish-name">
-                      <h3>{menuItem.dishName || "Dish Name"}</h3>
+                      <h4>{menuItem.dishName || "Dish Name"}</h4>
                       <p style={{ color: menuItem.veg ? "green" : "red" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
@@ -83,7 +83,7 @@ const CustomerMenu = () => {
               </span>
             ))}
             <br />
-            <p>{data.mainCourse?.length > 0 ? "|MAIN COURSE|" : ""}</p>
+            <p className='category-tag'>{data.mainCourse?.length > 0 ? "|MAIN COURSE|" : ""}</p>
             {data.mainCourse?.map((menuItem, index) => (
               <span key={index} className='menu-span-container'>
                 <p>{menuItem.title}</p>
@@ -116,7 +116,7 @@ const CustomerMenu = () => {
             ))}
             <br />
 
-            <p>{data.curry?.length > 0 ? "| CURRY |" : ""}</p>
+            <p className='category-tag'>{data.curry?.length > 0 ? "| CURRY |" : ""}</p>
             {data.curry?.map((menuItem, index) => (
               <span key={index} className='menu-span-container'>
                 <p>{menuItem.title}</p>
@@ -148,7 +148,7 @@ const CustomerMenu = () => {
               </span>
             ))}
             <br />
-            <p>{data.beverages?.length > 0 ? "| BEVERAGES |" : ""}</p>
+            <p className='category-tag'>{data.beverages?.length > 0 ? "| BEVERAGES |" : ""}</p>
             {data.beverages?.map((menuItem, index) => (
               <span key={index} className='menu-span-container'>
                 <p>{menuItem.title}</p>
@@ -181,7 +181,7 @@ const CustomerMenu = () => {
             ))}
             <br />
 
-            <p>  {data.special?.length > 0 ? "| SPECIAL |" : ""}</p>
+            <p className='category-tag'>  {data.special?.length > 0 ? "| SPECIAL |" : ""}</p>
             {data.special?.map((menuItem, index) => (
               <span key={index} className='menu-span-container'>
                 <p>{menuItem.title}</p>

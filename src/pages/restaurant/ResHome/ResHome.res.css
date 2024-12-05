@@ -6,12 +6,12 @@
 }
 
 #nav-area-restaurant {
-  height: 90px;
+  height: 60px;
   overflow: hidden;
 }
 
 #outlet-area-restaurant {
-  height: calc(100vh - 90px);
+  height: calc(100vh - 60px);
   overflow: auto;
   position: relative;
 }
