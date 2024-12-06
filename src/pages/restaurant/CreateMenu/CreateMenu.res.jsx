@@ -5,7 +5,7 @@ import { storage } from '../../../utils/Firebase.js';
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import axios from 'axios';
 import { toast } from 'react-hot-toast';
-
+import imageCompression from "browser-image-compression";
 const RestaurantCreateMenu = () => {
   const { idOfRestaurant } = useParams();
   const [image, setImage] = useState(null);
@@ -69,25 +69,36 @@ const RestaurantCreateMenu = () => {
     setdata((prevData) => ({ ...prevData, veg: !prevData.veg }));
   };
 
-  const handleImageChange = (e) => {
+  const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
       setLoaderDisplay("block");
-      const storageRef = ref(storage, `images/${file.name}`);
-      uploadBytes(storageRef, file)
-        .then((snapshot) => {
-          getDownloadURL(snapshot.ref).then((url) => {
-            setdata((prevData) => ({ ...prevData, image: url }));
-            setImage(url);
-          });
-        })
-        .catch((error) => {
-          toast.error("Failed to upload image.");
-          console.error("Error uploading image:", error);
-        })
-        .finally(() => {
-          setLoaderDisplay("none");
-        });
+
+      try {
+        // Compression options
+        const options = {
+          maxSizeMB: 0.200, // Maximum file size in MB
+          maxWidthOrHeight: 720, // Keep dimensions reasonable
+          useWebWorker: true, // Use web worker for faster compression
+        };
+
+        // Compress the image
+        const compressedFile = await imageCompression(file, options);
+
+        // Proceed with Firebase upload
+        const storageRef = ref(storage, `images/${compressedFile.name}`);
+        const snapshot = await uploadBytes(storageRef, compressedFile);
+        const url = await getDownloadURL(snapshot.ref);
+
+        // Update your state with the image URL
+        setdata((prevData) => ({ ...prevData, image: url }));
+        setImage(url);
+      } catch (error) {
+        toast.error("Failed to upload image.");
+        console.error("Error uploading image:", error);
+      } finally {
+        setLoaderDisplay("none");
+      }
     }
   };
 

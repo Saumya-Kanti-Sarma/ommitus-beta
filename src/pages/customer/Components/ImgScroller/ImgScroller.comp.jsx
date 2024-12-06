@@ -53,7 +53,7 @@ const ImgScroller = ({ RestaurantData }) => {
             key={index}
             className={`dot ${index === activeIndex ? 'active' : ''}`}
             onClick={() => setActiveIndex(index)}
-          >.</span>
+          ></span>
         ))}
       </div>
     </div>
