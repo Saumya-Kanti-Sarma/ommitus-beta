@@ -60,7 +60,7 @@ const CustomerMenu = () => {
                 }}>
                   <img
                     src={menuItem.image || "/food.png"}
-                    alt={menuItem.name || "Dish Image"}
+                    alt={menuItem.dishName || "Dish Image"}
                     className="menu-item-image"
                   />
                   <span>
@@ -92,12 +92,12 @@ const CustomerMenu = () => {
                 }}>
                   <img
                     src={menuItem.image || "/food.png"}
-                    alt={menuItem.name || "Dish Image"}
+                    alt={menuItem.dishName || "Dish Image"}
                     className="menu-item-image"
                   />
                   <span>
                     <div className="cus-dish-name">
-                      <h3>{menuItem.name || "Dish Name"}</h3>
+                      <h3>{menuItem.dishName || "Dish Name"}</h3>
                       <p style={{ color: menuItem.veg ? "green" : "red" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
@@ -125,12 +125,12 @@ const CustomerMenu = () => {
                 }}>
                   <img
                     src={menuItem.image || "/food.png"}
-                    alt={menuItem.name || "Dish Image"}
+                    alt={menuItem.dishName || "Dish Image"}
                     className="menu-item-image"
                   />
                   <span>
                     <div className="cus-dish-name">
-                      <h3>{menuItem.name || "Dish Name"}</h3>
+                      <h3>{menuItem.dishName || "Dish Name"}</h3>
                       <p style={{ color: menuItem.veg ? "green" : "red" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
@@ -157,12 +157,12 @@ const CustomerMenu = () => {
                 }}>
                   <img
                     src={menuItem.image || "/food.png"}
-                    alt={menuItem.name || "Dish Image"}
+                    alt={menuItem.dishName || "Dish Image"}
                     className="menu-item-image"
                   />
                   <span>
                     <div className="cus-dish-name">
-                      <h3>{menuItem.name || "Dish Name"}</h3>
+                      <h3>{menuItem.dishName || "Dish Name"}</h3>
                       <p style={{ color: menuItem.veg ? "green" : "red" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
@@ -190,12 +190,12 @@ const CustomerMenu = () => {
                 }}>
                   <img
                     src={menuItem.image || "/food.png"}
-                    alt={menuItem.name || "Dish Image"}
+                    alt={menuItem.dishName || "Dish Image"}
                     className="menu-item-image"
                   />
                   <span>
                     <div className="cus-dish-name">
-                      <h3>{menuItem.name || "Dish Name"}</h3>
+                      <h3>{menuItem.dishName || "Dish Name"}</h3>
                       <p style={{ color: menuItem.veg ? "green" : "red" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
