@@ -78,17 +78,18 @@
   width: 85%;
   height: 200px;
   max-width: 200px;
-  max-height: 200px;
   background-color: #c7c7c7bb;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 15px;
   border-radius: 8px;
+  overflow: hidden;
 }
 
 .menu-item img {
   width: 100%;
+  hei: 100%;
   max-width: 200px;
   max-height: 200px;
   border-radius: 8px;
@@ -101,7 +102,7 @@
   background-color: #dddddd6c;
   width: 90%;
   width: 200px;
-  height: 135px;
+  height: 120px;
   text-align: center;
   display: flex;
   justify-content: center;

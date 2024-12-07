@@ -45,3 +45,10 @@ li {
     transform: rotate(1turn)
   }
 }
+
+/* For most browsers */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
