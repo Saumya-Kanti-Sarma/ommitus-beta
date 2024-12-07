@@ -87,7 +87,7 @@ const CustomerDish = () => {
     return (
       <main className="cus-dish-main">
         <div style={{
-          display: "flex", justifyContent: "center", alignItems: "center", height: "100%", width: "100%"
+          display: "flex", justifyContent: "center", alignItems: "start", height: "100%", width: "100%"
         }}>
           <div className="cus-dish-area-loading">
             <img src="/food.png" alt="Loading" />
@@ -109,10 +109,9 @@ const CustomerDish = () => {
               {data?.veg ? "Veg" : "Non-Veg"} <b>{data?.category}</b>
             </p>
             <br />
-            <p>{data?.description || "No description available"}</p>
-            <br />
-            <p>half-plate: ₹{data?.halfPlate}</p>
-            <p>full-plate: ₹{data?.fullPlate}</p>
+            <p style={{ display: data?.description?.length > 0 ? "" : "none" }}>{data?.description}</p>
+
+            <p style={{ fontSize: "20px", fontWeight: "300" }}>Price: <b>{data?.fullPlate && data?.halfPlate ? `₹${data?.fullPlate}/₹${data?.halfPlate}` : `₹${data?.fullPlate}`}</b></p>
           </section>
         </div>
         <Button

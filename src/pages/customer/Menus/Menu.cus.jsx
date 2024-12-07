@@ -66,18 +66,18 @@ const CustomerMenu = () => {
                   <span>
                     <div className="cus-dish-name">
                       <h4>{menuItem.dishName || "Dish Name"}</h4>
-                      <p style={{ color: menuItem.veg ? "green" : "red" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
+                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
                       {menuItem.description
                         ? menuItem.description.split(' ').length > 10
                           ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
                           : menuItem.description
-                        : "No description available"}
+                        : ""}
                     </p>
 
-                    <p className='cus-dish-price'>Full-plate: ₹{menuItem.fullPlate || "N/A"}</p>
-                    <p className='cus-dish-price'>Half-plate: ₹{menuItem.halfPlate || "N/A"}</p>
+                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate && menuItem.halfPlate ? `₹${menuItem.fullPlate}/₹${menuItem.halfPlate}` : `₹${menuItem.fullPlate}`}</p>
+
                   </span>
                 </div>
               </span>
@@ -98,18 +98,18 @@ const CustomerMenu = () => {
                   <span>
                     <div className="cus-dish-name">
                       <h3>{menuItem.dishName || "Dish Name"}</h3>
-                      <p style={{ color: menuItem.veg ? "green" : "red" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
+                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
                       {menuItem.description
                         ? menuItem.description.split(' ').length > 10
                           ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
                           : menuItem.description
-                        : "No description available"}
+                        : ""}
                     </p>
 
-                    <p className='cus-dish-price'>Full-plate: ₹{menuItem.fullPlate || "N/A"}</p>
-                    <p className='cus-dish-price'>Half-plate: ₹{menuItem.halfPlate || "N/A"}</p>
+                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate || "N/A"}</p>
+
                   </span>
                 </div>
               </span>
@@ -131,18 +131,18 @@ const CustomerMenu = () => {
                   <span>
                     <div className="cus-dish-name">
                       <h3>{menuItem.dishName || "Dish Name"}</h3>
-                      <p style={{ color: menuItem.veg ? "green" : "red" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
+                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
                       {menuItem.description
                         ? menuItem.description.split(' ').length > 10
                           ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
                           : menuItem.description
-                        : "No description available"}
+                        : ""}
                     </p>
 
-                    <p className='cus-dish-price'>Full-plate: ₹{menuItem.fullPlate || "N/A"}</p>
-                    <p className='cus-dish-price'>Half-plate: ₹{menuItem.halfPlate || "N/A"}</p>
+                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate || "N/A"}</p>
+
                   </span>
                 </div>
               </span>
@@ -163,18 +163,18 @@ const CustomerMenu = () => {
                   <span>
                     <div className="cus-dish-name">
                       <h3>{menuItem.dishName || "Dish Name"}</h3>
-                      <p style={{ color: menuItem.veg ? "green" : "red" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
+                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
                       {menuItem.description
                         ? menuItem.description.split(' ').length > 10
                           ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
                           : menuItem.description
-                        : "No description available"}
+                        : ""}
                     </p>
 
-                    <p className='cus-dish-price'>Full-plate: ₹{menuItem.fullPlate || "N/A"}</p>
-                    <p className='cus-dish-price'>Half-plate: ₹{menuItem.halfPlate || "N/A"}</p>
+                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate || "N/A"}</p>
+
                   </span>
                 </div>
               </span>
@@ -196,18 +196,18 @@ const CustomerMenu = () => {
                   <span>
                     <div className="cus-dish-name">
                       <h3>{menuItem.dishName || "Dish Name"}</h3>
-                      <p style={{ color: menuItem.veg ? "green" : "red" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
+                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
                       {menuItem.description
                         ? menuItem.description.split(' ').length > 10
                           ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
                           : menuItem.description
-                        : "No description available"}
+                        : ""}
                     </p>
 
-                    <p className='cus-dish-price'>Full-plate: ₹{menuItem.fullPlate || "N/A"}</p>
-                    <p className='cus-dish-price'>Half-plate: ₹{menuItem.halfPlate || "N/A"}</p>
+                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate || "N/A"}</p>
+
                   </span>
                 </div>
                 <br />

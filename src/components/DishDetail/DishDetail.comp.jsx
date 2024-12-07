@@ -83,10 +83,10 @@ const DishDetailComponent = ({ DisplayEditAndDelete, DisplayAddReview }) => {
                     loading: "Deleting...",
                     success: "Dish deleted successfully!",
                     error: "Failed to delete dish",
-                    duration: 800,
+                    duration: 200,
                   }
                 );
-                navigate(`/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu`);
+                navigate(`/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu/available`);
               } catch (error) {
                 toast.error("Cannot delete dish. Check console for details.");
                 console.error(error);
@@ -125,7 +125,7 @@ const DishDetailComponent = ({ DisplayEditAndDelete, DisplayAddReview }) => {
   const handleEditImage = async (event) => {
     const storage = getStorage();
     const newImageFile = event.target.files[0];
-    const imgRef = ref(storage, `images/dishes/${dishId}/${newImageFile.name}`);
+    const imgRef = ref(storage, `images/${newImageFile.name}`);
 
     try {
       const oldImgRef = ref(storage, dish.image);
@@ -205,7 +205,9 @@ const DishDetailComponent = ({ DisplayEditAndDelete, DisplayAddReview }) => {
               | {dish.available ? "Available" : "Not Available"}
             </span>
           </h2>
-          <p className="dish-price">{dish.veg == true ? "veg" : "non-veg"}{" "}{dish.category}</p>
+          <p className="dish-price">{dish.veg == true ? "veg" : "non-veg"}{" "}{dish.category}
+          </p>
+
           <p className="dish-price">
             Price: {dishPrice}{" "}
             {editingPrice ? (
@@ -224,27 +226,27 @@ const DishDetailComponent = ({ DisplayEditAndDelete, DisplayAddReview }) => {
                   placeholder="Half Plate Price"
                   className="edit-dish-price-input"
                 />
-                <button onClick={handleSavePrice} className="edited-data-button">Save</button>
+                <button onClick={handleSavePrice} className="edited-data-button" style={{ color: "blue" }}>Save</button>
               </span>
             ) : (
-              <button onClick={() => setEditingPrice(true)} className="edited-data-button">Edit</button>
+              <button onClick={() => setEditingPrice(true)} className="edited-data-button">EDIT</button>
             )}
           </p>
 
           <p className="dish-description">
             {editingDescription ? (
-              <span>
+              <span style={{ display: "flex", alignItems: "end" }}>
                 <textarea
                   value={newDescription}
                   onChange={(e) => setNewDescription(e.target.value)}
                   className="add-new-description"
                 />
-                <button onClick={handleSaveDescription}>Save</button>
+                <button onClick={handleSaveDescription} className="edited-data-button" style={{ color: "blue" }}>Save</button>
               </span>
             ) : (
               <>
                 {dish.description.length > 0 ? dish.description : "add a description"}
-                <button onClick={() => setEditingDescription(true)} className="edited-data-button">Edit</button>
+                <button onClick={() => setEditingDescription(true)} className="edited-data-button">EDIT</button>
               </>
             )}
           </p>
