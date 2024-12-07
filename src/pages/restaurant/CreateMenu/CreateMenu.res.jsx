@@ -144,7 +144,7 @@ const RestaurantCreateMenu = () => {
           <section className='check-area'>
             <div className="checkbox-group">
               <label>Category:</label>
-              {["starter", "main-course", "curry", "rice", "chinese", "roti", "beverages", "special"].map((option) => (
+              {["starter", "main-course", "curry", "rice", "chinese", "roti", "beverages", "salad", "special"].map((option) => (
                 <label key={option}>
                   <input
                     type="radio"

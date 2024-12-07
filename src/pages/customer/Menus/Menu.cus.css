@@ -94,6 +94,8 @@
 .menu-item-area img {
   opacity: 1;
   filter: none;
+  min-width: 100px;
+  aspect-ratio: 1/1;
 }
 
 .category-tag {
@@ -121,8 +123,20 @@
   justify-content: space-between;
 }
 
+.cus-dish-name h4 {
+  font-size: 13px;
+}
+
+.cus-dish-name p {
+  font-size: 10px;
+}
+
+.cus-dish-price {
+  font-size: 12px;
+}
+
 .cus-dish-descp {
   opacity: 0.55;
-  font-size: 14px;
+  font-size: 12px;
   margin-bottom: 10px;
 }

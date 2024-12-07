@@ -45,7 +45,6 @@ const CustomerMenu = () => {
 
   return (
     <>
-      <h1 className='cus-menu-heading'>| MENU |</h1>
       <section className='cus-menu-section'>
         {
           <>
@@ -147,7 +146,107 @@ const CustomerMenu = () => {
                 </div>
               </span>
             ))}
+
             <br />
+            <p className='category-tag'>{data.rice?.length > 0 ? "| rice |" : ""}</p>
+            {data.rice?.map((menuItem, index) => (
+              <span key={index} className='menu-span-container'>
+                <p>{menuItem.title}</p>
+                <div className='menu-item-area' onClick={() => {
+                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
+                }}>
+                  <img
+                    src={menuItem.image || "/food.png"}
+                    alt={menuItem.dishName || "Dish Image"}
+                    className="menu-item-image"
+                  />
+                  <span>
+                    <div className="cus-dish-name">
+                      <h3>{menuItem.dishName || "Dish Name"}</h3>
+                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
+                    </div>
+                    <p className='cus-dish-descp'>
+                      {menuItem.description
+                        ? menuItem.description.split(' ').length > 10
+                          ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
+                          : menuItem.description
+                        : ""}
+                    </p>
+
+                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate || "N/A"}</p>
+
+                  </span>
+                </div>
+              </span>
+            ))}
+            <br />
+
+
+            <p className='category-tag'>{data.chinese?.length > 0 ? "| chinese |" : ""}</p>
+            {data.chinese?.map((menuItem, index) => (
+              <span key={index} className='menu-span-container'>
+                <p>{menuItem.title}</p>
+                <div className='menu-item-area' onClick={() => {
+                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
+                }}>
+                  <img
+                    src={menuItem.image || "/food.png"}
+                    alt={menuItem.dishName || "Dish Image"}
+                    className="menu-item-image"
+                  />
+                  <span>
+                    <div className="cus-dish-name">
+                      <h3>{menuItem.dishName || "Dish Name"}</h3>
+                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
+                    </div>
+                    <p className='cus-dish-descp'>
+                      {menuItem.description
+                        ? menuItem.description.split(' ').length > 10
+                          ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
+                          : menuItem.description
+                        : ""}
+                    </p>
+
+                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate || "N/A"}</p>
+
+                  </span>
+                </div>
+              </span>
+            ))}
+            <br />
+            <p className='category-tag'>{data.roti?.length > 0 ? "| roti |" : ""}</p>
+            {data.roti?.map((menuItem, index) => (
+              <span key={index} className='menu-span-container'>
+                <p>{menuItem.title}</p>
+                <div className='menu-item-area' onClick={() => {
+                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
+                }}>
+                  <img
+                    src={menuItem.image || "/food.png"}
+                    alt={menuItem.dishName || "Dish Image"}
+                    className="menu-item-image"
+                  />
+                  <span>
+                    <div className="cus-dish-name">
+                      <h3>{menuItem.dishName || "Dish Name"}</h3>
+                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
+                    </div>
+                    <p className='cus-dish-descp'>
+                      {menuItem.description
+                        ? menuItem.description.split(' ').length > 10
+                          ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
+                          : menuItem.description
+                        : ""}
+                    </p>
+
+                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate || "N/A"}</p>
+
+                  </span>
+                </div>
+              </span>
+            ))}
+            <br />
+
             <p className='category-tag'>{data.beverages?.length > 0 ? "| BEVERAGES |" : ""}</p>
             {data.beverages?.map((menuItem, index) => (
               <span key={index} className='menu-span-container'>
