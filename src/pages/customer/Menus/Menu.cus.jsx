@@ -96,7 +96,7 @@ const CustomerMenu = () => {
                   />
                   <span>
                     <div className="cus-dish-name">
-                      <h3>{menuItem.dishName || "Dish Name"}</h3>
+                      <h4>{menuItem.dishName || "Dish Name"}</h4>
                       <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
@@ -129,7 +129,7 @@ const CustomerMenu = () => {
                   />
                   <span>
                     <div className="cus-dish-name">
-                      <h3>{menuItem.dishName || "Dish Name"}</h3>
+                      <h4>{menuItem.dishName || "Dish Name"}</h4>
                       <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
@@ -162,7 +162,7 @@ const CustomerMenu = () => {
                   />
                   <span>
                     <div className="cus-dish-name">
-                      <h3>{menuItem.dishName || "Dish Name"}</h3>
+                      <h4>{menuItem.dishName || "Dish Name"}</h4>
                       <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
@@ -196,7 +196,7 @@ const CustomerMenu = () => {
                   />
                   <span>
                     <div className="cus-dish-name">
-                      <h3>{menuItem.dishName || "Dish Name"}</h3>
+                      <h4>{menuItem.dishName || "Dish Name"}</h4>
                       <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
@@ -228,7 +228,7 @@ const CustomerMenu = () => {
                   />
                   <span>
                     <div className="cus-dish-name">
-                      <h3>{menuItem.dishName || "Dish Name"}</h3>
+                      <h4>{menuItem.dishName || "Dish Name"}</h4>
                       <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
@@ -261,7 +261,7 @@ const CustomerMenu = () => {
                   />
                   <span>
                     <div className="cus-dish-name">
-                      <h3>{menuItem.dishName || "Dish Name"}</h3>
+                      <h4>{menuItem.dishName || "Dish Name"}</h4>
                       <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>
@@ -294,7 +294,7 @@ const CustomerMenu = () => {
                   />
                   <span>
                     <div className="cus-dish-name">
-                      <h3>{menuItem.dishName || "Dish Name"}</h3>
+                      <h4>{menuItem.dishName || "Dish Name"}</h4>
                       <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
                     </div>
                     <p className='cus-dish-descp'>

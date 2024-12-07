@@ -20,7 +20,7 @@ const RestaurantQR = () => {
         justifyContent: "center"
       }}>
         <QRCode
-          value={`https://230239cf.ommitus.pages.dev/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu`}
+          value={`https://ommitus.pages.dev/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu`}
           style={{
             backgroundColor: "white",
             padding: "15px",
