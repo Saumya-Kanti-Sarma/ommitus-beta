@@ -1,7 +1,7 @@
 import React from 'react';
 import { Outlet } from "react-router-dom";
 import CustomerNavbar from "./Components/Navbar/Navbar.comp.jsx"
-import "./customer.css"
+import "./Customer.css"
 const Customer = () => {
   return (
     <>
