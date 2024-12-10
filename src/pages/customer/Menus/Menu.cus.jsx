@@ -2,20 +2,56 @@ import React, { useEffect, useState } from 'react';
 import "./Menu.cus.css";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import MenuCategory from "./MenuCategory.jsx";
 
 const CustomerMenu = () => {
-  const [data, setData] = useState(null);
   const { idOfRestaurant, nameOfRestaurant } = useParams();
+  const [data, setData] = useState(null);
   const navigate = useNavigate();
+  const [filteredMenuData, setFilteredMenuData] = useState([]);
+  const [availableCategories, setAvailableCategories] = useState([]);
+  const [activeFilter, setActiveFilter] = useState("all-items");
+  const [newMenuData, setNewMenuData] = useState([]);
+  const [totalItems, setTotalItems] = useState(0);
+  const [contentLoaading, setContentLoading] = useState("");
+  const [loader, setLoader] = useState("none");
+
+  const allCategories = [
+    "all-items",
+    "starter",
+    "main-course",
+    "curry",
+    "beverages",
+    "special",
+    "rice",
+    "chinese",
+    "roti",
+    "salad",
+    "momos",
+    "noodles",
+    "birayani",
+    "tandoori",
+    "drinks",
+    "fries",
+    "soup",
+    "stakes",
+    "roast",
+    "rolls",
+    "cutlets",
+  ];
 
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/restaurant/menu/all-items/${idOfRestaurant}`);
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/restaurant/menu/${idOfRestaurant}&available=true`);
         //console.log(response.data.data);
-        setTimeout(() => {
-          setData(response.data.data);
-        }, 800);
+        setData(response.data.data);
+        setNewMenuData(response.data.data);
+        setFilteredMenuData(response.data.data); // Initially show all items
+
+        // Filter categories dynamically based on the available items
+        const categories = new Set(response.data.data.map((item) => item.category));
+        setAvailableCategories(["all-items", ...allCategories.filter((cat) => categories.has(cat))]);
       } catch (error) {
         console.error("Error fetching menu data:", error);
       }
@@ -23,301 +59,89 @@ const CustomerMenu = () => {
     fetchData();
   }, [idOfRestaurant]);
 
-  if (!data) {
+  if (data == null) {
     return (
       <>
-
-        <span className='menu-span-container' >
+        <span className='menu-span-container'>
           <section className='cus-menu-section'>
             {Array(8).fill().map((_, index) => (
               <div key={index} className='menu-item-area-animated add-animation'>
                 <img src="/food.png" alt="" />
                 <span></span>
               </div>
-
             ))}
-
           </section>
         </span>
       </>
-    )
+    );
   }
+
+  // Handle filter button click
+  const handleFilterClick = (category) => {
+    setActiveFilter(category);
+    setLoader("");
+    setContentLoading("none");
+    if (category === "all-items") {
+      //console.log(newMenuData);
+      setTotalItems(newMenuData.length);
+      setFilteredMenuData(newMenuData); // Show all items
+      setTimeout(() => {
+        setLoader("none");
+        setContentLoading("");
+      }, 300);
+    } else {
+      const filteredData = newMenuData.filter((item) => item.category === category);
+      setFilteredMenuData(filteredData);
+      setTotalItems(filteredData.length);
+      setTimeout(() => {
+        setLoader("none");
+        setContentLoading("");
+      }, 500);
+    }
+  };
+
+  // Group menu data by category
+  const groupedMenuData = filteredMenuData.reduce((acc, item) => {
+    if (!acc[item.category]) {
+      acc[item.category] = [];
+    }
+    acc[item.category].push(item);
+    return acc;
+  }, {});
+
 
   return (
     <>
       <section className='cus-menu-section'>
-        {
-          <>
-
-            {/* Render the menu items */}
-
-            <p className='category-tag'>{data.starter?.length > 0 ? "|STARTER|" : ""}</p>
-            {data.starter?.map((menuItem, index) => (
-              <span key={index} className='menu-span-container'>
-                <div className='menu-item-area' onClick={() => {
-                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
-                }}>
-                  <img
-                    src={menuItem.image || "/food.png"}
-                    alt={menuItem.dishName || "Dish Image"}
-                    className="menu-item-image"
-                  />
-                  <span>
-                    <div className="cus-dish-name">
-                      <h4>{menuItem.dishName || "Dish Name"}</h4>
-                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
-                    </div>
-                    <p className='cus-dish-descp'>
-                      {menuItem.description
-                        ? menuItem.description.split(' ').length > 10
-                          ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
-                          : menuItem.description
-                        : ""}
-                    </p>
-
-                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate && menuItem.halfPlate ? `₹${menuItem.fullPlate}/₹${menuItem.halfPlate}` : `₹${menuItem.fullPlate}`}</p>
-
-                  </span>
-                </div>
-              </span>
-            ))}
-            <br />
-            <p className='category-tag'>{data.mainCourse?.length > 0 ? "|MAIN COURSE|" : ""}</p>
-            {data.mainCourse?.map((menuItem, index) => (
-              <span key={index} className='menu-span-container'>
-                <p>{menuItem.title}</p>
-                <div className='menu-item-area' onClick={() => {
-                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
-                }}>
-                  <img
-                    src={menuItem.image || "/food.png"}
-                    alt={menuItem.dishName || "Dish Image"}
-                    className="menu-item-image"
-                  />
-                  <span>
-                    <div className="cus-dish-name">
-                      <h4>{menuItem.dishName || "Dish Name"}</h4>
-                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
-                    </div>
-                    <p className='cus-dish-descp'>
-                      {menuItem.description
-                        ? menuItem.description.split(' ').length > 10
-                          ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
-                          : menuItem.description
-                        : ""}
-                    </p>
-
-                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate || "N/A"}</p>
-
-                  </span>
-                </div>
-              </span>
-            ))}
-            <br />
-
-            <p className='category-tag'>{data.curry?.length > 0 ? "| CURRY |" : ""}</p>
-            {data.curry?.map((menuItem, index) => (
-              <span key={index} className='menu-span-container'>
-                <p>{menuItem.title}</p>
-                <div className='menu-item-area' onClick={() => {
-                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
-                }}>
-                  <img
-                    src={menuItem.image || "/food.png"}
-                    alt={menuItem.dishName || "Dish Image"}
-                    className="menu-item-image"
-                  />
-                  <span>
-                    <div className="cus-dish-name">
-                      <h4>{menuItem.dishName || "Dish Name"}</h4>
-                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
-                    </div>
-                    <p className='cus-dish-descp'>
-                      {menuItem.description
-                        ? menuItem.description.split(' ').length > 10
-                          ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
-                          : menuItem.description
-                        : ""}
-                    </p>
-
-                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate || "N/A"}</p>
-
-                  </span>
-                </div>
-              </span>
-            ))}
-
-            <br />
-            <p className='category-tag'>{data.rice?.length > 0 ? "| rice |" : ""}</p>
-            {data.rice?.map((menuItem, index) => (
-              <span key={index} className='menu-span-container'>
-                <p>{menuItem.title}</p>
-                <div className='menu-item-area' onClick={() => {
-                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
-                }}>
-                  <img
-                    src={menuItem.image || "/food.png"}
-                    alt={menuItem.dishName || "Dish Image"}
-                    className="menu-item-image"
-                  />
-                  <span>
-                    <div className="cus-dish-name">
-                      <h4>{menuItem.dishName || "Dish Name"}</h4>
-                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
-                    </div>
-                    <p className='cus-dish-descp'>
-                      {menuItem.description
-                        ? menuItem.description.split(' ').length > 10
-                          ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
-                          : menuItem.description
-                        : ""}
-                    </p>
-
-                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate || "N/A"}</p>
-
-                  </span>
-                </div>
-              </span>
-            ))}
-            <br />
-
-
-            <p className='category-tag'>{data.chinese?.length > 0 ? "| chinese |" : ""}</p>
-            {data.chinese?.map((menuItem, index) => (
-              <span key={index} className='menu-span-container'>
-                <p>{menuItem.title}</p>
-                <div className='menu-item-area' onClick={() => {
-                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
-                }}>
-                  <img
-                    src={menuItem.image || "/food.png"}
-                    alt={menuItem.dishName || "Dish Image"}
-                    className="menu-item-image"
-                  />
-                  <span>
-                    <div className="cus-dish-name">
-                      <h4>{menuItem.dishName || "Dish Name"}</h4>
-                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
-                    </div>
-                    <p className='cus-dish-descp'>
-                      {menuItem.description
-                        ? menuItem.description.split(' ').length > 10
-                          ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
-                          : menuItem.description
-                        : ""}
-                    </p>
-
-                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate || "N/A"}</p>
-
-                  </span>
-                </div>
-              </span>
-            ))}
-            <br />
-            <p className='category-tag'>{data.roti?.length > 0 ? "| roti |" : ""}</p>
-            {data.roti?.map((menuItem, index) => (
-              <span key={index} className='menu-span-container'>
-                <p>{menuItem.title}</p>
-                <div className='menu-item-area' onClick={() => {
-                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
-                }}>
-                  <img
-                    src={menuItem.image || "/food.png"}
-                    alt={menuItem.dishName || "Dish Image"}
-                    className="menu-item-image"
-                  />
-                  <span>
-                    <div className="cus-dish-name">
-                      <h4>{menuItem.dishName || "Dish Name"}</h4>
-                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
-                    </div>
-                    <p className='cus-dish-descp'>
-                      {menuItem.description
-                        ? menuItem.description.split(' ').length > 10
-                          ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
-                          : menuItem.description
-                        : ""}
-                    </p>
-
-                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate || "N/A"}</p>
-
-                  </span>
-                </div>
-              </span>
-            ))}
-            <br />
-
-            <p className='category-tag'>{data.beverages?.length > 0 ? "| BEVERAGES |" : ""}</p>
-            {data.beverages?.map((menuItem, index) => (
-              <span key={index} className='menu-span-container'>
-                <p>{menuItem.title}</p>
-                <div className='menu-item-area' onClick={() => {
-                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
-                }}>
-                  <img
-                    src={menuItem.image || "/food.png"}
-                    alt={menuItem.dishName || "Dish Image"}
-                    className="menu-item-image"
-                  />
-                  <span>
-                    <div className="cus-dish-name">
-                      <h4>{menuItem.dishName || "Dish Name"}</h4>
-                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
-                    </div>
-                    <p className='cus-dish-descp'>
-                      {menuItem.description
-                        ? menuItem.description.split(' ').length > 10
-                          ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
-                          : menuItem.description
-                        : ""}
-                    </p>
-
-                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate || "N/A"}</p>
-
-                  </span>
-                </div>
-              </span>
-            ))}
-            <br />
-
-            <p className='category-tag'>  {data.special?.length > 0 ? "| SPECIAL |" : ""}</p>
-            {data.special?.map((menuItem, index) => (
-              <span key={index} className='menu-span-container'>
-                <p>{menuItem.title}</p>
-                <div className='menu-item-area' onClick={() => {
-                  navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)
-                }}>
-                  <img
-                    src={menuItem.image || "/food.png"}
-                    alt={menuItem.dishName || "Dish Image"}
-                    className="menu-item-image"
-                  />
-                  <span>
-                    <div className="cus-dish-name">
-                      <h4>{menuItem.dishName || "Dish Name"}</h4>
-                      <p style={{ color: menuItem.veg ? "green" : "black" }}>{menuItem.veg ? "Veg" : "Non-Veg"}</p>
-                    </div>
-                    <p className='cus-dish-descp'>
-                      {menuItem.description
-                        ? menuItem.description.split(' ').length > 10
-                          ? menuItem.description.split(' ').slice(0, 10).join(' ') + '...'
-                          : menuItem.description
-                        : ""}
-                    </p>
-
-                    <p className='cus-dish-price'>Price: ₹{menuItem.fullPlate || "N/A"}</p>
-
-                  </span>
-                </div>
-                <br />
-                <br />
-              </span>
-            ))}
-            <h1 className='cus-menu-heading' style={{ opacity: "0.6" }}>{"| Opps! \n Our Dish Ends (>_<!) |"}</h1>
-            <br />
-            <br />
-          </>
-        }
+        <div className="filter-dish-section">
+          <h3>Filter:</h3>
+          {availableCategories.map((category, index) => (
+            <button
+              key={index}
+              className={`cus-filter-dish-section-btns ${activeFilter === category ? "cusactivebtn" : ""}`}
+              onClick={() => handleFilterClick(category)}
+            >
+              {category}
+            </button>
+          ))}
+        </div>
+        <hr />
+        <br />
+        <div className='def-loader' style={{ display: loader }}></div>
+        <span style={{ display: contentLoaading }}>
+          <h1 className='cus-category-heading'>| {activeFilter} |</h1>
+          <p className='cus-category-total'>Total items: {totalItems}</p>
+          {Object.keys(groupedMenuData).map((category, index) => (
+            <MenuCategory
+              key={index}
+              title={category}
+              items={groupedMenuData[category]}
+              navigate={navigate}
+              nameOfRestaurant={nameOfRestaurant}
+              idOfRestaurant={idOfRestaurant}
+            />
+          ))}
+        </span>
       </section>
     </>
   );

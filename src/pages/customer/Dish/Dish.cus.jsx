@@ -3,85 +3,49 @@ import "./Dish.cus.css";
 import Button from '../Components/Btn/Button.comp.jsx';
 import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
-import toast from "react-hot-toast"
+import MenuCategory from '../Menus/MenuCategory.jsx';
 const CustomerDish = () => {
   const navigate = useNavigate();
-  const { idOfRestaurant, dishId } = useParams();
+  const { idOfRestaurant, dishId, nameOfRestaurant } = useParams();
   const [data, setData] = useState(null);
-
-  // Ratings
-  const [selectedStar, setSelectedStar] = useState(-1); // Default to -1 (no star selected)
-  const [ratingsData, setRatingsData] = useState({
-    dishID: "",
-    review: "",
-    customerName: "",
-    stars: 0,
-    gender: true, // true for male, false for female
-  });
-
-  const nameRef = useRef();
-  const reviewRef = useRef();
+  const [category, setCategory] = useState(null);
+  const [categorydisplay, setCategoryDisplay] = useState("");
+  const [categoryLoading, setCategoryLoading] = useState("none");
 
   useEffect(() => {
     async function fetchData() {
       const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/restaurant/menu/get-one/${idOfRestaurant}/${dishId}`);
       setTimeout(() => {
         setData(response.data.data);
-        setRatingsData((prev) => ({
-          ...prev,
-          dishID: response.data.data._id, // Stars are 1-indexed
-        }));
-      }, 740);
+      }, 400);
     }
     fetchData();
   }, [idOfRestaurant]);
+  useEffect(() => {
+    async function fetchCategoryData() {
+      setCategoryLoading("flex");
+      setCategoryDisplay('none');
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/restaurant/menu/all-items/${idOfRestaurant}/${data?.category}`);
 
-  const handleStarClick = (index) => {
-    setSelectedStar(index);
-    setRatingsData((prev) => ({
-      ...prev,
-      stars: index + 1, // Stars are 1-indexed
-    }));
-  };
-
-  const handleRef = (e, nextRef) => {
-    if (e.key === "Enter") {
-      nextRef?.current?.focus();
-    }
-  };
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setRatingsData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleGenderChange = (gender) => {
-    setRatingsData((prev) => ({
-      ...prev,
-      gender,
-    }));
-  };
-
-  const handleSubmitRatings = async () => {
-    const toastid = toast.loading("adding your review...")
-    try {
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/review/add-review/${dishId}`, ratingsData);
-      console.log(response.data);
-
-      toast.dismiss(toastid);
-      toast.success("Thanks for the review..");
+      setCategory(response.data.data);
       setTimeout(() => {
-        window.location.replace();
-      }, 350);
-
-    } catch (error) {
-      toast.dismiss(toastid)
-      toast.error(error.message)
+        setCategoryDisplay("");
+        setCategoryLoading("none")
+      }, 2000);
     }
-  };
+    fetchCategoryData();
+  }, [idOfRestaurant, data])
+
+  const groupedMenuData = category?.reduce((acc, item) => {
+    if (!acc[item.category]) {
+      acc[item.category] = [];
+    }
+    acc[item.category].push(item);
+    return acc;
+  }, {});
+
+
+
 
   if (!data) {
     return (
@@ -108,23 +72,55 @@ const CustomerDish = () => {
             <p style={{ color: data?.veg ? "green" : "red" }}>
               {data?.veg ? "Veg" : "Non-Veg"} <b>{data?.category}</b>
             </p>
-            <br />
-            <p style={{ display: data?.description?.length > 0 ? "" : "none" }}>{data?.description}</p>
+            <p >Price: {data?.fullPlate && data?.halfPlate ? `₹${data?.fullPlate}.00/₹${data?.halfPlate}.00` : `₹${data?.fullPlate}.00`}</p>
 
-            <p style={{ fontSize: "20px", fontWeight: "300" }}>Price: <b>{data?.fullPlate && data?.halfPlate ? `₹${data?.fullPlate}/₹${data?.halfPlate}` : `₹${data?.fullPlate}`}</b></p>
+            <p style={{ display: data?.description?.length > 0 ? "" : "none" }}>{data?.description}</p>
           </section>
         </div>
+      </div>
+      <br />
+      <h1 style={{ textAlign: "center", fontSize: "18px" }}>Check other {data.category}</h1>
+      {
+        groupedMenuData && Object.keys(groupedMenuData).map((categoryName, index) => (
+          <span
+            onClick={() => {
+              setTimeout(() => {
+                window.location.reload();
+              }, 120);
+            }}
+            style={{ display: categorydisplay }}
+          >
+            <MenuCategory
+              key={index}
+              title={categoryName} // Pass the category name
+              items={groupedMenuData[categoryName]} // Pass items in this category
+              navigate={navigate}
+              nameOfRestaurant={nameOfRestaurant}
+              idOfRestaurant={idOfRestaurant}
+            />
+          </span>
+
+        ))
+      }
+      <br />
+      <div className='cus-menu-span-container' style={{ display: categoryLoading }} >
+        <div className='cus-menu-span-container-child'>
+          {Array(8).fill().map((_, index) => (
+            <div key={index} className='menu-item-area-animated add-animation'>
+              <img src="/food.png" alt="" />
+              <span></span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
         <Button
-          label={"Go Back"}
+          label={"Back To Menu"}
           styles={{ width: "90%", padding: "20px 0", fontSize: "18px", maxWidth: "800px" }}
-          onClick={() => navigate(-1)}
-        />
+          onClick={() => navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu`)} />
       </div>
     </main>
   );
 };
-
-
-
 
 export default CustomerDish;

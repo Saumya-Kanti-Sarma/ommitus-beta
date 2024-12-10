@@ -144,8 +144,8 @@ const RestaurantCreateMenu = () => {
           <section className='check-area'>
             <div className="checkbox-group">
               <label>Category:</label>
-              {["starter", "main-course", "curry", "beverages", "special", "rice", "chinese", "roti", "salad", "momos", "noodles", "birayani", "tandoori", "drinks", "chicken", "fish",].map((option) => (
-                <label key={option} style={{ marginRight: "8px" }}>
+              {["starter", "main-course", "curry", "beverages", "special", "rice", "chinese", "roti", "salad", "momos", "noodles", "birayani", "tandoori", "drinks", "fries", "drinks", "soup", "stakes", "roast", "rolls", "cutlets"].map((option) => (
+                <div key={option} style={{ marginRight: "8px", display: "inline-block" }}>
                   <input
                     type="radio"
                     name="category"
@@ -154,22 +154,30 @@ const RestaurantCreateMenu = () => {
                     onChange={() => handleCategoryChange(option)}
                   />
                   {option}
-                </label>
+                </div>
               ))}
             </div>
-
-            {/* VEG */}
-            <div className="checkbox-group">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={data.veg}
-                  onChange={handleVegToggle}
-                />
-                Vegetarian
-              </label>
-            </div>
           </section>
+
+          {/* VEG */}
+          <div className="checkbox-group">
+            <label>
+              <input
+                type="checkbox"
+                checked={data.veg}
+                onChange={handleVegToggle}
+              />
+              veg
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={!data.veg}
+                onChange={handleVegToggle}
+              />
+              non-veg
+            </label>
+          </div>
 
           {/* DESCRIPTION */}
           <textarea

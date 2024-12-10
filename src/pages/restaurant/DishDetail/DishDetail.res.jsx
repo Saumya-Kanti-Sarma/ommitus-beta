@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { getStorage, ref, deleteObject, uploadBytes, getDownloadURL } from "firebase/storage";
 import { toast } from "react-hot-toast";
 
@@ -14,6 +14,7 @@ const RestaurantDishDetail = () => {
   const [newHalfPlatePrice, setNewHalfPlatePrice] = useState(""); // for half plate price changes
   const [newFullPlatePrice, setNewFullPlatePrice] = useState(""); // for full plate price changes
 
+  const navigate = useNavigate();
   // Fetch dish details
   useEffect(() => {
     const fetchDish = async () => {
@@ -129,9 +130,9 @@ const RestaurantDishDetail = () => {
       await axios.delete(`${import.meta.env.VITE_BACKEND_URL}/restaurant/menu/delete-menu/${dishId}`);
       toast.dismiss(id);
       toast.success("Dish deleted successfully!");
-      window.location.href = `/restaurant/${idOfRestaurant}/menu`; // Redirect to menu page
       setTimeout(() => {
-        window.location.reload()
+        window.location.reload();
+        navigate(-1);
       }, 300);
     } catch (error) {
       toast.dismiss(id);
@@ -203,32 +204,42 @@ const RestaurantDishDetail = () => {
           <section className='check-area'>
             <div className="checkbox-group">
               <label>Category:</label>
-              {["starter", "main-course", "curry", "beverages", "special", "rice", "chinese", "roti", "salad", "momos", "noodles", "birayani", "tandoori", "drinks"].map((option) => (
-                <label key={option} style={{ marginRight: "8px" }}>
-                  <input
-                    type="radio"
-                    name="category"
-                    value={option}
-                    checked={dish.category === option}
-                    onChange={() => setDish({ ...dish, category: option })}
-                  />
-                  {option}
-                </label>
+              {["starter", "main-course", "curry", "beverages", "special", "rice", "chinese", "roti", "salad", "momos", "noodles", "birayani", "tandoori", "drinks", "fries", "drinks", "soup", "stakes", "roast", "rolls", "cutlets"].map((option) => (
+                <>
+                  <div key={option} style={{ marginRight: "8px", display: "inline-block" }}>
+                    <input
+                      type="radio"
+                      name="category"
+                      value={option}
+                      checked={dish.category === option}
+                      onChange={() => setDish({ ...dish, category: option })}
+                    />
+                    {option}
+                  </div>
+                </>
               ))}
             </div>
-
-            {/* VEG */}
-            <div className="checkbox-group">
-              <label>
-                <input
-                  type="checkbox"
-                  checked={dish.veg}
-                  onChange={() => setDish({ ...dish, veg: !dish.veg })}
-                />
-                Vegetarian
-              </label>
-            </div>
           </section>
+
+          {/* VEG */}
+          <div className="checkbox-group">
+            <label style={{ marginRight: "8px" }}>
+              <input
+                type="checkbox"
+                checked={dish.veg}
+                onChange={() => setDish({ ...dish, veg: dish.veg })}
+              />
+              Veg
+            </label>
+            <label>
+              <input
+                type="checkbox"
+                checked={!dish.veg}
+                onChange={() => setDish({ ...dish, veg: !dish.veg })}
+              />
+              non-veg
+            </label>
+          </div>
 
           {/* DESCRIPTION */}
           <textarea

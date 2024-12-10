@@ -6,10 +6,38 @@ import "./Menu.comp.css";
 
 const MenuComponent = ({ mainUrl, onclickURL }) => {
   const [newMenuData, setNewMenuData] = useState([]);
-  const [hoveredItem, setHoveredItem] = useState(null); // State to track hovered item
-  const [menuGetDetails, setMenuGetDetails] = useState(null); // State to track hovered item
+  const [filteredMenuData, setFilteredMenuData] = useState([]);
+  const [hoveredItem, setHoveredItem] = useState(null);
+  const [menuGetDetails, setMenuGetDetails] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [activeFilter, setActiveFilter] = useState("all-items");
   const navigate = useNavigate();
+
+  const allCategories = [
+    "all-items",
+    "starter",
+    "main-course",
+    "curry",
+    "beverages",
+    "special",
+    "rice",
+    "chinese",
+    "roti",
+    "salad",
+    "momos",
+    "noodles",
+    "birayani",
+    "tandoori",
+    "drinks",
+    "fries",
+    "soup",
+    "stakes",
+    "roast",
+    "rolls",
+    "cutlets",
+  ];
+
+  const [availableCategories, setAvailableCategories] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -21,6 +49,11 @@ const MenuComponent = ({ mainUrl, onclickURL }) => {
 
         if (response.status >= 200 && response.status < 300) {
           setNewMenuData(response.data.data);
+          setFilteredMenuData(response.data.data); // Initially show all items
+
+          // Filter categories dynamically based on the available items
+          const categories = new Set(response.data.data.map((item) => item.category));
+          setAvailableCategories(["all-items", ...allCategories.filter((cat) => categories.has(cat))]);
         }
       } catch (error) {
         console.error(`${import.meta.env.VITE_BACKEND_URL}${mainUrl}`);
@@ -51,6 +84,17 @@ const MenuComponent = ({ mainUrl, onclickURL }) => {
     }, 1000);
   };
 
+  // Handle filter button click
+  const handleFilterClick = (category) => {
+    setActiveFilter(category);
+
+    if (category === "all-items") {
+      setFilteredMenuData(newMenuData); // Show all items
+    } else {
+      const filteredData = newMenuData.filter((item) => item.category === category);
+      setFilteredMenuData(filteredData);
+    }
+  };
 
   return (
     <>
@@ -59,63 +103,94 @@ const MenuComponent = ({ mainUrl, onclickURL }) => {
           <div className="def-loader menu-loades-main"></div>
         </div>
       ) : (
-        <div>
-          {newMenuData && newMenuData.length > 0 ? (
-            <div className="parent-menu-container">
-              <div className="menu-container">
-                {newMenuData.map((item) => (
-                  <div
-                    key={item._id}
-                    className="menu-item"
-                    onMouseLeave={() => {
-                      setHoveredItem(null);
-                      setMenuGetDetails(null);
-                    }}
-                  >
-
-                    <span className="menu-image-span">
-                      <img src={item.image || "/food.png"} alt="/food.png"
-                        onMouseEnter={() => setMenuGetDetails(item._id)}
-                      />
-                    </span>
-                    <p className="menu-get-details"
-                      style={{
-                        display: menuGetDetails == item._id ? "" : "none"
+        <>
+          <div className="filter-dish-section">
+            <h3>Filter:</h3>
+            {availableCategories.map((category, index) => (
+              <button
+                key={index}
+                className={`filter-dish-section-btns ${activeFilter === category ? "active-filter" : ""}`}
+                onClick={() => handleFilterClick(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+          <div>
+            {filteredMenuData && filteredMenuData.length > 0 ? (
+              <div className="parent-menu-container">
+                <div className="menu-container">
+                  {filteredMenuData.map((item) => (
+                    <div
+                      key={item._id}
+                      className="menu-item"
+                      onMouseLeave={() => {
+                        setHoveredItem(null);
+                        setMenuGetDetails(null);
                       }}
-                      onClick={() => navigate(`${onclickURL}/${item._id}`)}
-                    >Get Details</p>
-                    <div className="menu-item-content">
-                      <div className="menu-item-header">
-                        <span onClick={() => navigate(`${onclickURL}/${item._id}`)}>{item.dishName}</span>
-                      </div>
+                    >
+                      <span className="menu-image-span">
+                        <img
+                          src={item.image || "/food.png"}
+                          alt="/food.png"
+                          onMouseEnter={() => setMenuGetDetails(item._id)}
+                        />
+                      </span>
                       <p
-                        className="menu-item-availability"
-                        style={{ color: item.available ? "#4CAF50" : "red" }}
-                        onMouseEnter={() => setHoveredItem(item._id)} // Show button when hovering over availability
-                      >
-                        {item.available ? "Available" : "Un-available"}
-                      </p>
-                      <button
-                        className="menu-edit-availability"
+                        className="menu-get-details"
                         style={{
-                          backgroundColor: item.available ? "red" : "#4CAF50",
-                          display: hoveredItem === item._id ? "block" : "none", // Show button only for hovered item
+                          display: menuGetDetails === item._id ? "" : "none",
                         }}
-                        onMouseEnter={() => setHoveredItem(item._id)} // Keep button visible when hovering over it
-                        onMouseLeave={() => setHoveredItem(null)} // Hide button when leaving it
-                        onClick={() => handleToggleAvailability(item)}
+                        onClick={() => navigate(`${onclickURL}/${item._id}`)}
                       >
-                        make {item.available ? "un-available" : "available"}
-                      </button>
+                        Get Details
+                      </p>
+                      <div className="menu-item-content">
+                        <div className="menu-item-header">
+                          <span
+                            onClick={() => navigate(`${onclickURL}/${item._id}`)}
+                          >
+                            {item.dishName}
+                          </span>
+                        </div>
+                        <p
+                          className="menu-item-availability"
+                          style={{ color: item.available ? "#4CAF50" : "red" }}
+                          onMouseEnter={() => setHoveredItem(item._id)} // Show button when hovering over availability
+                        >
+                          {item.available ? "Available" : "Un-available"}
+                        </p>
+                        <button
+                          className="menu-edit-availability"
+                          style={{
+                            backgroundColor: item.available
+                              ? "red"
+                              : "#4CAF50",
+                            display:
+                              hoveredItem === item._id ? "block" : "none", // Show button only for hovered item
+                          }}
+                          onMouseEnter={() => setHoveredItem(item._id)} // Keep button visible when hovering over it
+                          onMouseLeave={() => setHoveredItem(null)} // Hide button when leaving it
+                          onClick={() => handleToggleAvailability(item)}
+                        >
+                          make {item.available ? "un-available" : "available"}
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
-            </div>
-          ) : (
-            <p>No menu items available.</p>
-          )}
-        </div>
+            ) : (
+              <div style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItem: "center",
+              }}>
+                <p style={{ fontSize: "22px" }}>No menu items available.</p>
+              </div>
+            )}
+          </div>
+        </>
       )}
     </>
   );

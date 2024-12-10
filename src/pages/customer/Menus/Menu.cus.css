@@ -140,3 +140,33 @@
   font-size: 12px;
   margin-bottom: 10px;
 }
+
+
+.cus-filter-dish-section-btns {
+  width: auto;
+  padding: 5px;
+  font-size: 12px;
+  /* background-color: transparent; */
+  border: none;
+  cursor: pointer;
+  transition: 0.200s ease-in-out;
+}
+
+.cusactivebtn {
+  background-color: #000;
+  color: #fff;
+  transform: scale(1.03);
+  border-radius: 3px;
+}
+
+.cus-category-heading {
+  text-align: center;
+  font-size: 18px;
+  margin: 0;
+}
+
+.cus-category-total {
+  font-size: 12px;
+  margin-left: 16px;
+  opacity: 0.7;
+}
