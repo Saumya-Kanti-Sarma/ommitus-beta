@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import "./Menu.comp.css";
@@ -12,32 +12,9 @@ const MenuComponent = ({ mainUrl, onclickURL }) => {
   const [loading, setLoading] = useState(true);
   const [activeFilter, setActiveFilter] = useState("all-items");
   const navigate = useNavigate();
+  const { idOfRestaurant } = useParams();
+  const [categories, setCategories] = useState(["all-items"]);
 
-  const allCategories = [
-    "all-items",
-    "starter",
-    "main-course",
-    "curry",
-    "beverages",
-    "special",
-    "rice",
-    "chinese",
-    "roti",
-    "salad",
-    "momos",
-    "noodles",
-    "birayani",
-    "tandoori",
-    "drinks",
-    "fries",
-    "soup",
-    "stakes",
-    "roast",
-    "rolls",
-    "cutlets",
-  ];
-
-  const [availableCategories, setAvailableCategories] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -50,10 +27,6 @@ const MenuComponent = ({ mainUrl, onclickURL }) => {
         if (response.status >= 200 && response.status < 300) {
           setNewMenuData(response.data.data);
           setFilteredMenuData(response.data.data); // Initially show all items
-
-          // Filter categories dynamically based on the available items
-          const categories = new Set(response.data.data.map((item) => item.category));
-          setAvailableCategories(["all-items", ...allCategories.filter((cat) => categories.has(cat))]);
         }
       } catch (error) {
         console.error(`${import.meta.env.VITE_BACKEND_URL}${mainUrl}`);
@@ -63,10 +36,24 @@ const MenuComponent = ({ mainUrl, onclickURL }) => {
         setLoading(false);
       }
     };
-
     fetchData();
-  }, [navigate]);
+  }, []);
 
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/restaurant/${idOfRestaurant}/get-all-categories`
+        );
+        const fetchedCategories = response.data.categories || [];
+        setCategories((prev) => Array.from(new Set(["all-items", ...prev, ...fetchedCategories])));
+      } catch (error) {
+        console.error("Error fetching categories:", error.message);
+      }
+    };
+
+    fetchCategory();
+  }, [idOfRestaurant]);
   // Toggle dish availability status
   const handleToggleAvailability = async (item) => {
     const toastID = toast.loading("Saving changes...");
@@ -106,7 +93,7 @@ const MenuComponent = ({ mainUrl, onclickURL }) => {
         <>
           <div className="filter-dish-section">
             <h3>Filter:</h3>
-            {availableCategories.map((category, index) => (
+            {categories.map((category, index) => (
               <button
                 key={index}
                 className={`filter-dish-section-btns ${activeFilter === category ? "active-filter" : ""}`}

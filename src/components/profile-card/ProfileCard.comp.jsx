@@ -14,6 +14,7 @@ const ProfileCardComponent = ({ img, name, description }) => {
   const phoneNumberRef = useRef(null);
   const emailRef = useRef(null);
   const aboutRef = useRef(null);
+  const categoryRef = useRef(null);
 
   const [data, setData] = useState({
     restaurantName: "",
@@ -21,6 +22,7 @@ const ProfileCardComponent = ({ img, name, description }) => {
     email: "",
     phoneNumber: "",
     about: "",
+    categories: ""
   });
 
   const handleChange = (e) => {
@@ -142,6 +144,7 @@ const ProfileCardComponent = ({ img, name, description }) => {
           <span>
             <p>Email:</p>
             <input
+              disabled
               className="input-popup-child"
               name='email'
               value={data.email}
@@ -160,6 +163,18 @@ const ProfileCardComponent = ({ img, name, description }) => {
               onChange={handleChange}
               placeholder='About'
               ref={aboutRef}
+              onKeyDown={(e) => handleKeyDown(e, categoryRef)}
+              className='input-popup-child paragraph-input-popup'
+            />
+          </span>
+          <span>
+            <p>Category:</p>
+            <textarea
+              name='about'
+              value={data.categories}
+              onChange={handleChange}
+              placeholder='About'
+              ref={categoryRef}
               onKeyDown={(e) => handleKeyDown(e, restaurantRef)}
               className='input-popup-child paragraph-input-popup'
             />

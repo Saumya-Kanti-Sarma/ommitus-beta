@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./CreateMenu.res.css";
 import { useParams } from 'react-router-dom';
 import { storage } from '../../../utils/Firebase.js';
@@ -10,7 +10,7 @@ const RestaurantCreateMenu = () => {
   const { idOfRestaurant } = useParams();
   const [image, setImage] = useState(null);
   const [loaderDisplay, setLoaderDisplay] = useState("none");
-
+  const [categories, setCategories] = useState([]);
   const [data, setdata] = useState({
     dishName: "",
     image: "",
@@ -101,7 +101,14 @@ const RestaurantCreateMenu = () => {
       }
     }
   };
-
+  useEffect(() => {
+    const fetchCategory = async () => {
+      await axios.get(`${import.meta.env.VITE_BACKEND_URL}/restaurant/${idOfRestaurant}/get-all-categories`)
+        .then((response) => setCategories(response.data.categories))
+        .catch((err) => console.log(err.message))
+    }
+    fetchCategory();
+  }, [idOfRestaurant])
   return (
     <>
       <head>
@@ -144,7 +151,7 @@ const RestaurantCreateMenu = () => {
           <section className='check-area'>
             <div className="checkbox-group">
               <label>Category:</label>
-              {["starter", "main-course", "curry", "beverages", "special", "rice", "chinese", "roti", "salad", "momos", "noodles", "birayani", "tandoori", "drinks", "fries", "drinks", "soup", "stakes", "roast", "rolls", "cutlets"].map((option) => (
+              {categories && categories.length > 0 ? categories.map((option) => (
                 <div key={option} style={{ marginRight: "8px", display: "inline-block" }}>
                   <input
                     type="radio"
@@ -155,7 +162,7 @@ const RestaurantCreateMenu = () => {
                   />
                   {option}
                 </div>
-              ))}
+              )) : " "}
             </div>
           </section>
 

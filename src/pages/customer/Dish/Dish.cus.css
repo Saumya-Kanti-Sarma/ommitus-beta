@@ -1,8 +1,19 @@
- .cus-dish-main {
+ .cus-dish-main,
+ .cus-dish-main-content-section {
    height: calc(100vh - 60px);
    width: 100vw;
    /* background-color: aqua; */
-   overflow: auto;
+
+   overflow-x: hidden;
+   position: relative;
+ }
+
+ .cus-dish-main-content-section {
+   width: 100%;
+ }
+
+ .cus-dish-main-content-section::-webkit-scrollbar {
+   display: none;
  }
 
  .cus-dish-main-child {
@@ -41,8 +52,7 @@
    overflow: hidden;
  }
 
- .cus-dish-area img,
- .cus-dish-area-loading img {
+ .cus-loading-img {
    width: 70%;
    aspect-ratio: 4/3;
    object-fit: cover;
@@ -52,7 +62,7 @@
    max-width: 400px;
  }
 
- .cus-dish-area-loading img,
+ .cus-loading-img,
  .cus-dish-area-loading section {
    animation: fadeOut 2s ease-in-out infinite;
  }
@@ -92,11 +102,33 @@
  }
 
 
- #cus-dishMain-food-img {
-   filter: grayscale(0%);
+ .cus-dishMain-food-img {
+
+   width: 70%;
+   aspect-ratio: 4/3;
+   object-fit: cover;
    opacity: 1;
+   border-radius: 16px;
  }
 
+ .image-baclground {
+   position: absolute;
+   left: 0;
+   top: 0;
+   width: 100%;
+   height: calc(100vh - 10px);
+   background-color: #00000054;
+   z-index: 99;
+ }
+
+ .active-image {
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   width: 95%;
+   z-index: 100;
+ }
 
  .cus-dishmain-text-section,
  .cus-dishmain-text-section-loading {

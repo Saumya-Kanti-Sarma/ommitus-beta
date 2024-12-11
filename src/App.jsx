@@ -14,7 +14,6 @@ import RestaurantQR from './pages/restaurant/QR/Qr.res.jsx';
 
 // ALL CUSTOMER COMPONENTS
 import Customer from './pages/customer/Customer.jsx';
-import CustomerHome from './pages/customer/Home/Home.cus.jsx';
 import CustomerMenu from './pages/customer/Menus/Menu.cus.jsx';
 import CustomerDish from './pages/customer/Dish/Dish.cus.jsx';
 
@@ -51,7 +50,7 @@ const App = () => {
 
           {/* Customer routes */}
           <Route path='/customer/restaurant/:nameOfRestaurant/:idOfRestaurant' element={<Customer />}>
-            <Route path='home' element={<CustomerHome />} />
+            {/* <Route path='home' element={<CustomerHome />} /> */}
             <Route path='menu' element={<CustomerMenu />} />
             <Route path=':dishId' element={<CustomerDish />} />
           </Route >

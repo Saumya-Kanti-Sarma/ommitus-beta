@@ -3,43 +3,21 @@ import "./Menu.cus.css";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import MenuCategory from "./MenuCategory.jsx";
+import Footer from '../Components/Footer/Footer.comp.jsx';
 
 const CustomerMenu = () => {
+  const [RestaurantData, setRestaurantData] = useState(null);
   const { idOfRestaurant, nameOfRestaurant } = useParams();
   const [data, setData] = useState(null);
   const navigate = useNavigate();
   const [filteredMenuData, setFilteredMenuData] = useState([]);
-  const [availableCategories, setAvailableCategories] = useState([]);
   const [activeFilter, setActiveFilter] = useState("all-items");
   const [newMenuData, setNewMenuData] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
   const [contentLoaading, setContentLoading] = useState("");
   const [loader, setLoader] = useState("none");
 
-  const allCategories = [
-    "all-items",
-    "starter",
-    "main-course",
-    "curry",
-    "beverages",
-    "special",
-    "rice",
-    "chinese",
-    "roti",
-    "salad",
-    "momos",
-    "noodles",
-    "birayani",
-    "tandoori",
-    "drinks",
-    "fries",
-    "soup",
-    "stakes",
-    "roast",
-    "rolls",
-    "cutlets",
-  ];
-
+  const [categories, setCategories] = useState(["all-items"]);
   useEffect(() => {
     async function fetchData() {
       try {
@@ -48,18 +26,44 @@ const CustomerMenu = () => {
         setData(response.data.data);
         setNewMenuData(response.data.data);
         setFilteredMenuData(response.data.data); // Initially show all items
-
-        // Filter categories dynamically based on the available items
-        const categories = new Set(response.data.data.map((item) => item.category));
-        setAvailableCategories(["all-items", ...allCategories.filter((cat) => categories.has(cat))]);
       } catch (error) {
         console.error("Error fetching menu data:", error);
       }
     }
     fetchData();
   }, [idOfRestaurant]);
+  useEffect(() => {
+    const fetchCategory = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/restaurant/${idOfRestaurant}/get-all-categories`
+        );
+        const fetchedCategories = response.data.categories || [];
+        setCategories((prev) => Array.from(new Set(["all-items", ...prev, ...fetchedCategories])));
+      } catch (error) {
+        console.error("Error fetching categories:", error.message);
+      }
+    };
 
-  if (data == null) {
+    fetchCategory();
+  }, [idOfRestaurant]);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(`${import.meta.env.VITE_BACKEND_URL}/restaurant/get-info/${idOfRestaurant}`);
+        //console.log(response.data.restaurantDetails);
+        setRestaurantData(response.data.restaurantDetails);
+      } catch (error) {
+        console.error("Error fetching restaurant data:", error);
+      }
+    }
+
+    fetchData();
+  }, [idOfRestaurant]); // Trigger the effect only when idOfRestaurant changes
+
+
+  if (data == null && !RestaurantData) {
     return (
       <>
         <span className='menu-span-container'>
@@ -113,35 +117,38 @@ const CustomerMenu = () => {
   return (
     <>
       <section className='cus-menu-section'>
-        <div className="filter-dish-section">
-          <h3>Filter:</h3>
-          {availableCategories.map((category, index) => (
-            <button
-              key={index}
-              className={`cus-filter-dish-section-btns ${activeFilter === category ? "cusactivebtn" : ""}`}
-              onClick={() => handleFilterClick(category)}
-            >
-              {category}
-            </button>
-          ))}
+        <div className='cus-menu-section-child'>
+          <div className="filter-dish-section">
+            <h3>Filter:</h3>
+            {categories.map((category, index) => (
+              <button
+                key={index}
+                className={`cus-filter-dish-section-btns ${activeFilter === category ? "cusactivebtn" : ""}`}
+                onClick={() => handleFilterClick(category)}
+              >
+                {category}
+              </button>
+            ))}
+          </div>
+          <hr />
+          <br />
+          <div className='def-loader' style={{ display: loader }}></div>
+          <span style={{ display: contentLoaading }}>
+            <h1 className='cus-category-heading'>| {activeFilter} |</h1>
+            <p className='cus-category-total'>Total items: {totalItems}</p>
+            {Object.keys(groupedMenuData).map((category, index) => (
+              <MenuCategory
+                key={index}
+                title={category}
+                items={groupedMenuData[category]}
+                navigate={navigate}
+                nameOfRestaurant={nameOfRestaurant}
+                idOfRestaurant={idOfRestaurant}
+              />
+            ))}
+          </span>
         </div>
-        <hr />
-        <br />
-        <div className='def-loader' style={{ display: loader }}></div>
-        <span style={{ display: contentLoaading }}>
-          <h1 className='cus-category-heading'>| {activeFilter} |</h1>
-          <p className='cus-category-total'>Total items: {totalItems}</p>
-          {Object.keys(groupedMenuData).map((category, index) => (
-            <MenuCategory
-              key={index}
-              title={category}
-              items={groupedMenuData[category]}
-              navigate={navigate}
-              nameOfRestaurant={nameOfRestaurant}
-              idOfRestaurant={idOfRestaurant}
-            />
-          ))}
-        </span>
+        <Footer RestaurantData={RestaurantData} />
       </section>
     </>
   );
