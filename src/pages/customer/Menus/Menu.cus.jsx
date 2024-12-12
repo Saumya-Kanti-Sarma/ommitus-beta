@@ -14,8 +14,9 @@ const CustomerMenu = () => {
   const [activeFilter, setActiveFilter] = useState("all-items");
   const [newMenuData, setNewMenuData] = useState([]);
   const [totalItems, setTotalItems] = useState(0);
-  const [contentLoaading, setContentLoading] = useState("");
+  const [contentLoaading, setContentLoading] = useState("100%");
   const [loader, setLoader] = useState("none");
+  const [dispTotalItems, setDispTotalItems] = useState("none");
 
   const [categories, setCategories] = useState(["all-items"]);
   useEffect(() => {
@@ -84,22 +85,24 @@ const CustomerMenu = () => {
   const handleFilterClick = (category) => {
     setActiveFilter(category);
     setLoader("");
-    setContentLoading("none");
+    setContentLoading("0%");
     if (category === "all-items") {
       //console.log(newMenuData);
       setTotalItems(newMenuData.length);
       setFilteredMenuData(newMenuData); // Show all items
+      setDispTotalItems("");
       setTimeout(() => {
         setLoader("none");
-        setContentLoading("");
+        setContentLoading("100%");
       }, 300);
     } else {
       const filteredData = newMenuData.filter((item) => item.category === category);
       setFilteredMenuData(filteredData);
       setTotalItems(filteredData.length);
+      setDispTotalItems("");
       setTimeout(() => {
         setLoader("none");
-        setContentLoading("");
+        setContentLoading("100%");
       }, 500);
     }
   };
@@ -117,9 +120,9 @@ const CustomerMenu = () => {
   return (
     <>
       <section className='cus-menu-section'>
-        <div className='cus-menu-section-child'>
-          <div className="filter-dish-section">
-            <h3>Filter:</h3>
+        <div className="filter-dish-section">
+          <h3>Filter:</h3>
+          <div className='filter-btns-div'>
             {categories.map((category, index) => (
               <button
                 key={index}
@@ -130,26 +133,29 @@ const CustomerMenu = () => {
               </button>
             ))}
           </div>
-          <hr />
-          <br />
-          <div className='def-loader' style={{ display: loader }}></div>
-          <span style={{ display: contentLoaading }}>
-            <h1 className='cus-category-heading'>| {activeFilter} |</h1>
-            <p className='cus-category-total'>Total items: {totalItems}</p>
-            {Object.keys(groupedMenuData).map((category, index) => (
-              <MenuCategory
-                key={index}
-                title={category}
-                items={groupedMenuData[category]}
-                navigate={navigate}
-                nameOfRestaurant={nameOfRestaurant}
-                idOfRestaurant={idOfRestaurant}
-              />
-            ))}
-          </span>
         </div>
-        <Footer RestaurantData={RestaurantData} />
+        <hr />
+        <br />
+        <div className='def-loader' style={{ display: loader }}></div>
+
+        <div style={{ opacity: contentLoaading || "100%" }} className='cus-dish-container-area'>
+          <h1 className='cus-category-heading'>| {activeFilter} |</h1>
+          <p className='cus-category-total' style={{ display: dispTotalItems }}>Total items: {totalItems}</p>
+          {Object.keys(groupedMenuData).map((category, index) => (
+            <MenuCategory
+              key={index}
+              title={category}
+              items={groupedMenuData[category]}
+              navigate={navigate}
+              nameOfRestaurant={nameOfRestaurant}
+              idOfRestaurant={idOfRestaurant}
+            />
+          ))}
+        </div>
+        <Footer RestaurantData={RestaurantData}
+        />
       </section>
+
     </>
   );
 };

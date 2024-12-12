@@ -141,11 +141,30 @@
   margin-bottom: 10px;
 }
 
+.filter-dish-section {
+  display: flex;
+  height: 18px;
+  overflow: hidden;
+}
+
+.filter-btns-div {
+  flex: 3;
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: auto;
+  width: auto;
+  gap: 10px;
+}
+
+.filter-btns-div::-webkit-scrollbar {
+  display: none;
+}
 
 .cus-filter-dish-section-btns {
   width: auto;
+  text-wrap-mode: nowrap;
   padding: 5px;
-  font-size: 12px;
+  font-size: 10px;
   /* background-color: transparent; */
   border: none;
   cursor: pointer;
@@ -169,4 +188,10 @@
   font-size: 12px;
   margin-left: 16px;
   opacity: 0.7;
+}
+
+.cus-dish-container-area {
+  /* background-color: orange; */
+  min-height: calc(100vh - 112px);
+  min-width: 100%;
 }

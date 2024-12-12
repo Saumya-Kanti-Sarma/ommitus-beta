@@ -26,8 +26,11 @@ const CustomerNavbar = () => {
       <div className="navbar-title">
         <h1
           style={{ cursor: "pointer" }}
+          onClick={() => {
+            navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu`)
+          }}
         >{nameOfRestaurant || "Name of restaurant"}</h1>
-        <p onClick={() => navigate("/")}>powered by Ommitus</p>
+        <p>powered by Ommitus</p>
       </div>
       <img src="/logo4.png"
         alt="ommitus.com"

@@ -10,8 +10,7 @@ const MenuCategory = ({ items, navigate, nameOfRestaurant, idOfRestaurant }) => 
             onClick={() => navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/${menuItem._id}`)}
           >
             <img
-              src={menuItem.image || "/food.png"}
-              alt={menuItem.dishName || "Dish Image"}
+              src={menuItem.image && menuItem.image[0].length > 1 ? menuItem.image : "/hot-food.jpg"}
               className="menu-item-image"
             />
             <span>

@@ -82,83 +82,85 @@ const CustomerDish = () => {
 
   return (
     <main className="cus-dish-main">
-      <div className='cus-dish-main-content-section'>
-        <div className="cus-dish-main-child">
-          <div className="cus-dish-area">
-            <div
-              className='image-baclground'
-              style={{ display: imgBackground }}
-              onClick={() => {
-                setActiveImage((prev) => prev == "" ? "active-image" : "");
-                setImgBackground((prev) => prev == "none" ? "" : "none");
-              }}
-            ></div>
-            <img
-              src={data?.image[0] || "/food.png"}
-              alt="Dish"
-              className={`cus-dishMain-food-img ${activeImage}`}
-              onClick={() => {
-                setActiveImage((prev) => prev == "" ? "active-image" : "");
-                setImgBackground((prev) => prev == "none" ? "" : "none");
-              }}
-            />
+      <div className="cus-dish-main-child">
+        <div className="cus-dish-area">
+          <div
+            className='image-baclground'
+            style={{ display: imgBackground }}
+            onClick={() => {
+              setActiveImage((prev) => prev == "" ? "active-image" : "");
+              setImgBackground((prev) => prev == "none" ? "" : "none");
+            }}
+          ></div>
+          <img
+            src={data?.image[0] || "/food.png"}
+            alt="Dish"
+            className={`cus-dishMain-food-img ${activeImage}`}
+            onClick={() => {
+              setActiveImage((prev) => prev == "" ? "active-image" : "");
+              setImgBackground((prev) => prev == "none" ? "" : "none");
+            }}
+          />
 
-            <section className="cus-dishmain-text-section">
-              <h1>{data?.dishName || "Unavailable"}</h1>
-              <p style={{ color: data?.veg ? "green" : "red" }}>
-                {data?.veg ? "Veg" : "Non-Veg"} <b>{data?.category}</b>
-              </p>
-              <p >Price: {data?.fullPlate && data?.halfPlate ? `₹${data?.fullPlate}.00/₹${data?.halfPlate}.00` : `₹${data?.fullPlate}.00`}</p>
+          <section className="cus-dishmain-text-section">
+            <h1>{data?.dishName || "Unavailable"}</h1>
+            <p style={{ color: data?.veg ? "green" : "red" }}>
+              {data?.veg ? "Veg" : "Non-Veg"} <b>{data?.category}</b>
+            </p>
+            <p >Price: {data?.fullPlate && data?.halfPlate ? `₹${data?.fullPlate}.00/₹${data?.halfPlate}.00` : `₹${data?.fullPlate}.00`}</p>
 
-              <p style={{ display: data?.description?.length > 0 ? "" : "none" }}>{data?.description}</p>
-            </section>
-          </div>
+            <p style={{ display: data?.description?.length > 0 ? "" : "none" }}>{data?.description}</p>
+          </section>
         </div>
-        <br />
-        <h1 style={{ textAlign: "center", fontSize: "18px" }}>Check other {data?.category}</h1>
-        {
-          groupedMenuData && Object.keys(groupedMenuData).map((categoryName, index) => (
-            <span
-              onClick={() => {
-                setTimeout(() => {
-                  window.location.reload();
-                }, 120);
-              }}
-              style={{ display: categorydisplay }}
-            >
-              <MenuCategory
-                key={index}
-                title={categoryName} // Pass the category name
-                items={groupedMenuData[categoryName]} // Pass items in this category
-                navigate={navigate}
-                nameOfRestaurant={nameOfRestaurant}
-                idOfRestaurant={idOfRestaurant}
-              />
-            </span>
-
-          ))
-        }
-        <br />
-        <div className='cus-menu-span-container' style={{ display: categoryLoading }} >
-          <div className='cus-menu-span-container-child'>
-            {Array(8).fill().map((_, index) => (
-              <div key={index} className='menu-item-area-animated add-animation'>
-                <img src="/food.png" alt="" />
-                <span></span>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center" }}>
-          <Button
-            label={"Back To Menu"}
-            styles={{ width: "90%", padding: "20px 0", fontSize: "18px", maxWidth: "800px" }}
-            onClick={() => navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu`)} />
-        </div>
-        <br />
-        <br />
       </div>
-      <Footer RestaurantData={RestaurantData} />
+      <br />
+      <h1 style={{ textAlign: "center", fontSize: "18px" }}>Check other {data?.category}</h1>
+      {
+        groupedMenuData && Object.keys(groupedMenuData).map((categoryName, index) => (
+          <span
+            onClick={() => {
+              setTimeout(() => {
+                window.location.reload();
+              }, 120);
+            }}
+            style={{ display: categorydisplay }}
+          >
+            <MenuCategory
+              key={index}
+              title={categoryName} // Pass the category name
+              items={groupedMenuData[categoryName]} // Pass items in this category
+              navigate={navigate}
+              nameOfRestaurant={nameOfRestaurant}
+              idOfRestaurant={idOfRestaurant}
+            />
+          </span>
+
+        ))
+      }
+      <br />
+      <div className='cus-menu-span-container' style={{ display: categoryLoading }} >
+        <div className='cus-menu-span-container-child'>
+          {Array(8).fill().map((_, index) => (
+            <div key={index} className='menu-item-area-animated add-animation'>
+              <img src="/food.png" alt="" />
+              <span></span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Button
+          label={"Back To Menu"}
+          styles={{ width: "90%", padding: "20px 0", fontSize: "18px", maxWidth: "800px" }}
+          onClick={() => navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu`)} />
+      </div>
+      <br />
+      <br />
+      <Footer RestaurantData={RestaurantData}
+        onClick={() => {
+          navigate(`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu`)
+        }}
+      />
     </main>
   );
 };
