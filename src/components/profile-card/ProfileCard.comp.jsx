@@ -22,11 +22,18 @@ const ProfileCardComponent = ({ img, name, description }) => {
     email: "",
     phoneNumber: "",
     about: "",
-    categories: ""
+    categories: [""]
   });
 
   const handleChange = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
+  };
+  const handleCategoryChange = (e) => {
+    const value = e.target.value;
+    // Split the input value into an array based on the comma separator
+    const categoriesArray = value.split(',').map((category) => category.trim());
+    setData({ ...data, categories: categoriesArray });
+    console.log(categoriesArray);
   };
 
   const handleKeyDown = (e, ref) => {
@@ -135,7 +142,7 @@ const ProfileCardComponent = ({ img, name, description }) => {
               name='phoneNumber'
               value={data.phoneNumber}
               onChange={handleChange}
-              onKeyDown={(e) => handleKeyDown(e, emailRef)}
+              onKeyDown={(e) => handleKeyDown(e, aboutRef)}
               ref={phoneNumberRef}
               type='text'
               placeholder='Enter phone number'
@@ -170,10 +177,10 @@ const ProfileCardComponent = ({ img, name, description }) => {
           <span>
             <p>Category:</p>
             <textarea
-              name='about'
+              name='categories'
               value={data.categories}
-              onChange={handleChange}
-              placeholder='About'
+              onChange={handleCategoryChange}
+              placeholder='categories'
               ref={categoryRef}
               onKeyDown={(e) => handleKeyDown(e, restaurantRef)}
               className='input-popup-child paragraph-input-popup'
