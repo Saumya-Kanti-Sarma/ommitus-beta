@@ -3,7 +3,7 @@ import "./Home.land.css";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import axios from 'axios';
-
+import QRCode from "react-qr-code";
 const HomeLanding = () => {
   const [token, setToken] = useState(null);
   const navigate = useNavigate();
@@ -82,6 +82,24 @@ const HomeLanding = () => {
         <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
           <button className='get-started-btn opacity-trans' onClick={() => navigate('/restaurant/create-account')}> GET STARTED NOW </button>
         </div>
+
+        <br /><br /><br /><br /><br /><br />
+        <span className='demo-qrcode-area'>
+          <h1>
+            Scan this QR code and visit our demo restaurant
+
+          </h1>
+          <QRCode
+            value={`https://ommitus.pages.dev/customer/restaurant/Gourmate-heavens/6741bbdd429688875d7bf1cc/menu`}
+            style={{
+              backgroundColor: "white",
+              padding: "15px",
+              border: "2px solid black",
+              borderRadius: "12px",
+              boxShadow: "0 0 10px 0 #00000057",
+            }}
+          />
+        </span>
         <br /><br /><br /><br /><br /><br />
         <section className='landing-features-section'>
           <h1><span>We</span> are <span>North-East</span> India based startup working day and night to provide you the best <span>features</span>.. </h1>
@@ -129,7 +147,8 @@ const HomeLanding = () => {
             </section>
           </ul>
         </section>
-        <br /><br /><br />
+        <br />
+        <br /><br />
 
       </main>
     </>

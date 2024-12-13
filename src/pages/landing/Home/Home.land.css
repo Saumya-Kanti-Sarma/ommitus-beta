@@ -188,7 +188,8 @@
 }
 
 .all-list-of-features {
-  height: 60vh;
+  min-height: 60vh;
+  height: auto;
   width: 70%;
   padding: 20px;
   border-radius: 12px;
@@ -232,6 +233,18 @@
 
 .bring-your-menu {
   text-align: center;
+}
+
+.demo-qrcode-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  margin: 0 auto;
+  background-color: var(--green);
+  padding: 20px;
+  border-radius: 12px;
+  justify-content: space-between;
 }
 
 @media (max-width:1000px) {

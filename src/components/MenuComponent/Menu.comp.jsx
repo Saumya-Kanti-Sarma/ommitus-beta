@@ -91,7 +91,7 @@ const MenuComponent = ({ mainUrl, onclickURL }) => {
         </div>
       ) : (
         <>
-          <div className="filter-dish-section">
+          <div className="filter-dish-section" style={{ height: "50px" }}>
             <h3>Filter:</h3>
             {categories.map((category, index) => (
               <button
@@ -118,8 +118,7 @@ const MenuComponent = ({ mainUrl, onclickURL }) => {
                     >
                       <span className="menu-image-span">
                         <img
-                          src={item.image || "/food.png"}
-                          alt="/food.png"
+                          src={item.image[0].length < 0 ? "/hot-food.jpg" : item.image[0]}
                           onMouseEnter={() => setMenuGetDetails(item._id)}
                         />
                       </span>

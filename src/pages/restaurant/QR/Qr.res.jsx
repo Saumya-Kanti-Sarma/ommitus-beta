@@ -31,7 +31,7 @@ const RestaurantQR = () => {
           }}
         />
       </div>
-      <Link to={`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/home`} style={{ display: "flex", justifyContent: "center" }}>Visit Menu</Link>
+      <Link to={`/customer/restaurant/${nameOfRestaurant}/${idOfRestaurant}/menu`} style={{ display: "flex", justifyContent: "center" }}>Visit Menu</Link>
     </>
   )
 }
